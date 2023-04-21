@@ -1,4 +1,4 @@
-import { Dialog, LinearProgress } from "@mui/material";
+import { Dialog, LinearProgress, colors } from "@mui/material";
 import { Picker } from "emoji-mart";
 import React, { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -79,13 +79,13 @@ const NewPost = ({ newPost, setNewPost }) => {
   return (
     <Dialog open={newPost} onClose={() => setNewPost(false)} maxWidth="xl">
       <div  className="flex flex-col sm:w-screen max-w-4xl">
-        <div style={{ backgroundColor:"#1B192E" }} className="bg-white py-3 border-b px-4 flex justify-between w-full">
-          <span style={{ color:"white" }} className="font-medium">Create new post</span>
+        <div style={{ backgroundColor:"#5b064a" }} className="bg-white py-3 border-b px-4 flex justify-between w-full">
+          <span style={{ color:"#ffebeb" }} className="font-medium">Create new post</span>
           <button
             onClick={newPostSubmitHandler}
             disabled={loading}
             className=" font-medium"
-            style={{ color: "#fff" }}
+            style={{ color: "#ffebeb" }}
           >
             Share
           </button>
@@ -110,8 +110,8 @@ const NewPost = ({ newPost, setNewPost }) => {
                 dragged && "opacity-40"
               } relative bg-white h-36 sm:h-[80vh] w-full flex flex-col gap-2 items-center justify-center mx-16`}
             >
-                <AddToPhotosIcon sx={{ color:"#1B192E", fontSize:"3em" }}/>
-              <p style={{ color:"#1B192E" }} className="text-xl">Drag photos and videos here</p>
+                <AddToPhotosIcon sx={{ color:"#5b064a", fontSize:"3em" }}/>
+              <p style={{ color:"#5b064a" }} className="text-xl">Drag photos and videos here</p>
               <input
                 type="file"
                 accept="image/*"
@@ -144,7 +144,7 @@ const NewPost = ({ newPost, setNewPost }) => {
                                     file:mr-3 file:py-2 file:px-6
                                     file:rounded-full file:border-0
                                     file:text-sm file:cursor-pointer file:font-semibold
-                                    file:bg-purple-100 file:text-purple-700
+                                    file:bg-[#ffebeb] file:text-[#5b064a]
                                     hover:file:bg-purple-200
                                     "
                 />
@@ -163,7 +163,8 @@ const NewPost = ({ newPost, setNewPost }) => {
               <div className="flex items-center justify-between">
                 <span
                   onClick={() => setShowEmojis(!showEmojis)}
-                  className="cursor-pointer"
+                  className="cursor-pointer "
+
                 >
                   {emojiIcon}
                 </span>
@@ -181,8 +182,8 @@ const NewPost = ({ newPost, setNewPost }) => {
                 <button
                   onClick={newPostSubmitHandler}
                   disabled={loading}
-                  style={{ backgroundColor:"#1B192E" }}
-                  className="text-white px-6 py-1.5 rounded font-medium hover:drop-shadow-lg uppercase text-sm tracking-wider"
+                  style={{ backgroundColor:"#ffebeb" }}
+                  className="text-[#5b064a] px-6 py-1.5 rounded font-medium hover:drop-shadow-lg uppercase text-sm tracking-wider"
                 >
                   Post
                 </button>

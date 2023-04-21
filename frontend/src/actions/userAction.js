@@ -2,7 +2,7 @@ import { ALL_USERS_FAIL, ALL_USERS_REQUEST, ALL_USERS_SUCCESS, CLEAR_ERRORS, FOL
 import axios from 'axios';
 
 // Login User
-export const loginUser = (userId, password) => async (dispatch) => {
+export const loginUser = (value, password) => async (dispatch) => {
     try {
         dispatch({ type: LOGIN_USER_REQUEST });
 
@@ -14,7 +14,7 @@ export const loginUser = (userId, password) => async (dispatch) => {
 
         const { data } = await axios.post(
             '/api/v1/login',
-            { userId, password },
+            { value, password },
             config
         );
 

@@ -53,20 +53,20 @@ const Sidebar = () => {
         paddingTop: 10,
         paddingX: 35,
         paddingBottom: 5,
-        backgroundImage: `radial-gradient(#ffffff, #c3cdd7)`,
+        backgroundImage: `white`,
         borderRadius: 25,
       }}
       className="fixed lg:right-32 xl:right-56 w-3/12 h-full hidden lg:flex flex-col flex-auto mt-12 pr-8 -z-1"
     >
       <div
         style={{ backgroundColor: "#fff", marginTop: 40, borderRadius: 25 }}
-        className="ml-10 flex flex-col p-2"
+        className="ml-10 flex flex-col p-2 shadow-lg"
       >
         {/* <!-- self profile card --> */}
         <div
           style={{
             marginTop: 25,
-            backgroundColor: "#1B192E",
+            backgroundColor: "#ffebeb",
             borderRadius: 10,
             paddingRight: 10,
             paddingLeft: 10,
@@ -87,14 +87,14 @@ const Sidebar = () => {
             <div className="flex flex-col">
               <Link
                 to={`/${user.username}`}
-                className="text-white text-sm font-semibold"
+                className="text-[#5b064a] text-sm font-semibold"
               >
                 {user.username}
               </Link>
               <span className="text-gray-400 text-sm">{user.name}</span>
             </div>
           </div>
-          <span className="text-blue-500 text-xs font-semibold cursor-pointer">
+          <span className="text-[#5b064a] text-xs font-semibold cursor-pointer">
             Switch
           </span>
         </div>
@@ -112,7 +112,7 @@ const Sidebar = () => {
           <p className="font-semibold text-gray-500 text-sm">
             Pet Suggestions For You
           </p>
-          <span className="text-black text-xs font-semibold cursor-pointer">
+          <span className="text-[#5b064a] text-xs font-semibold cursor-pointer">
             See All
           </span>
         </div>
@@ -121,14 +121,14 @@ const Sidebar = () => {
         <div
           style={{
             marginTop: 25,
-            backgroundColor: "#1B192E",
+            backgroundColor: "#ffebeb",
             borderRadius: 10,
             paddingRight: 10,
             paddingLeft: 10,
             paddingTop: 20,
             paddingBottom: 20,
           }}
-          className="flex flex-col flex-auto mt-3 space-y-3.5"
+          className="flex flex-col flex-auto mt-3 space-y-3.5 text-[#5b064a]"
         >
           {loading
             ? Array(5)

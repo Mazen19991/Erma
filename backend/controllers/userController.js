@@ -9,7 +9,7 @@ const deleteFile = require('../utils/deleteFile');
 
 // Signup User
 exports.signupUser = catchAsync(async (req, res, next) => {
-  const { name, email, Ownername, username, password } = req.body;
+  const { name,   species ,email, Ownername, username, password } = req.body;
 
   const user = await User.findOne({
     $or: [{ email }, { username }],

@@ -297,8 +297,8 @@ const PostItem = ({
                   type="submit"
                   className={`${
                     comment.trim().length < 1
-                      ? "text-blue-300"
-                      : "text-primary-blue"
+                      ? "text-[#5b064a]"
+                      : "text-[#5b064a]"
                   } text-sm font-semibold`}
                   disabled={comment.trim().length < 1}
                 >

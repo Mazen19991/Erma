@@ -90,7 +90,7 @@ const UpdateProfile = () => {
       <form
         onSubmit={handleUpdate}
         encType="multipart/form-data"
-        className="flex flex-col gap-4 py-4 px-4 sm:py-10 sm:px-24 sm:w-3/4"
+        className="flex flex-col gap-4 py-4 px-4 sm:py-10 sm:px-24 sm:w-3/4 text-[#5b064a]"
       >
         <div className="flex items-center gap-8 ml-20">
           <div className="w-11 h-11">
@@ -182,8 +182,8 @@ const UpdateProfile = () => {
         <button
           type="submit"
           disabled={loading}
-          style={{ backgroundColor: "#1B192E" }}
-          className="font-medium rounded text-white py-2 w-40 mx-auto text-sm"
+          style={{ backgroundColor: "#ffebeb" }}
+          className="font-medium rounded text-[#5b064a] py-2 w-40 mx-auto text-sm"
         >
           Submit
         </button>

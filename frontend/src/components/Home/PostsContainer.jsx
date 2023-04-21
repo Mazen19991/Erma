@@ -96,7 +96,7 @@ const PostsContainer = () => {
     <>
       <div
         style={{ marginLeft: "10%", marginRight: "10%" }}
-        className="flex flex-col w-full lg:w-5/12 sm:mt-6 sm:px-8 mb-8"
+        className="flex flex-col w-full lg:w-5/12 sm:mt-6 sm:px-8 mb-8 text-[#5b064a]"
       >
         <StoriesContainer />
 
@@ -110,7 +110,7 @@ const PostsContainer = () => {
           hasMore={posts.length !== totalPosts}
           loader={<SpinLoader />}
         >
-          <div className="w-full h-full mt-1 sm:mt-6 flex flex-col space-y-4">
+          <div className="w-full h-full mt-1 sm:mt-6 flex flex-col space-y-4 text-[#5b064a]">
             {posts?.map((post) => (
               <PostItem
                 key={post._id}

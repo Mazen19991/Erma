@@ -117,7 +117,7 @@ const Profile = () => {
 
   return (
     <>
-      <MetaData
+      <MetaData 
         title={`${user?.name} (@${user?.username}) • photos and videos`}
       />
 
@@ -129,16 +129,14 @@ const Profile = () => {
             paddingX: 35,
             paddingBottom: 5,
             backgroundImage:
-              "linear-gradient(to bottom right, #54affa,rgb(125, 123, 243))",
-            opacity: "1",
+              "white",
             backgroundSize: "100% 100%",
-            animation: "gradient 10s ease infinite",
           }}
           className="mt-16 mx-auto"
         >
           <div
             style={{ backgroundColor: "white" }}
-            className="sm:flex w-full sm:py-8"
+            className="sm:flex w-full sm:py-8 text-[#5b064a]"
           >
             {/* profile picture */}
             <div className="sm:w-1/3 flex justify-center mx-auto sm:mx-0">
@@ -155,7 +153,7 @@ const Profile = () => {
               <div className="flex items-center gap-8 sm:justify-start justify-between">
                 <h2
                   className="text-2xl sm:text-3xl"
-                  style={{ color: "#1B192E" }}
+                  style={{ color: "#5b064a" }}
                 >
                   {user.username}
                 </h2>
@@ -164,7 +162,7 @@ const Profile = () => {
                     <Link
                       to="/accounts/edit"
                       className="border font-medium hover:bg-gray-50 text-sm rounded px-2 py-1"
-                      style={{ backgroundColor: "#1B192E", color: "white" }}
+                      style={{ backgroundColor: "#5b064a", color: "white" }}
                     >
                       Edit Profile
                     </Link>

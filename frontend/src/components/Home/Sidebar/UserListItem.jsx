@@ -28,7 +28,7 @@ const UserListItem = ({ _id, username, avatar }) => {
         <div className="flex flex-col gap-0.5">
           <Link
             to={`/${username}`}
-            className="text-white text-sm font-semibold hover:underline"
+            className="text-[#5b064a] text-sm font-semibold hover:underline"
           >
             {username}
           </Link>
@@ -38,7 +38,7 @@ const UserListItem = ({ _id, username, avatar }) => {
       <button
         onClick={handleFollow}
         className={`${
-          follow ? "text-red-500" : "text-blue-500"
+          follow ? "text-red-500" : "text-[#5b064a]"
         } text-xs font-medium`}
       >
         {follow ? "Unfollow" : "Follow"}

@@ -16,7 +16,7 @@ import { useSelector } from "react-redux";
 import { BASE_PROFILE_IMAGE_URL } from "../../utils/constants";
 import SearchBox from "./SearchBar/SearchBox";
 import { ClickAwayListener } from "@mui/material";
-import logo from "../../assests/images/logo.png";
+import logo1 from "../../assests/images/ermalogo.png";
 
 const Header = () => {
   const { user } = useSelector((state) => state.user);
@@ -35,7 +35,7 @@ const Header = () => {
 
   return (
     <nav
-      style={{ backgroundColor: "#1B192E" }}
+      style={{ backgroundColor: "#ffebeb" }}
       className="fixed top-0 w-full border-b bg-white z-10"
     >
       {/* <!-- navbar container --> */}
@@ -45,8 +45,8 @@ const Header = () => {
           <div style={{ width: "70px" }}>
             <img
               draggable="false"
-              className="mt-1.5 w-full h-full object-contain"
-              src={logo}
+              className="mt-1.5 w-full h-full object-contain scale-150 "
+              src={logo1}
               alt=""
             />
           </div>
@@ -57,7 +57,7 @@ const Header = () => {
         {/* <!-- icons container  --> */}
         <div className="flex items-center space-x-6 sm:mr-5">
           <Link to="/">
-            {profileToggle || !onHome ? homeOutline : homeFill}
+            {!onHome ? homeOutline : homeFill}
           </Link>
 
           <Link to="/direct/inbox">

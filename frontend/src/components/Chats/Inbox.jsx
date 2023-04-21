@@ -21,7 +21,7 @@ import SearchModal from "./SearchModal";
 import SpinLoader from "../Layouts/SpinLoader";
 import MetaData from "../Layouts/MetaData";
 import { USER_DETAILS_RESET } from "../../constants/userConstants";
-import logo from "../../assests/images/logo.png";
+import logo from "../../assests/images/ermalogo.png";
 import EmojiEmotionsIcon from "@mui/icons-material/EmojiEmotions";
 import PetsIcon from "@mui/icons-material/Pets";
 
@@ -176,7 +176,7 @@ const Inbox = () => {
         style={{
           marginTop: "80px",
           backgroundImage:
-            "linear-gradient(to bottom right, rgba(2,0,36,1) 0%, rgba(121,9,77,1) 45%, rgba(255,0,142,1) 100%)",
+            "white",
           opacity: "1",
           backgroundSize: "100% 100%",
           animation: "gradient 10s ease infinite",
@@ -187,7 +187,7 @@ const Inbox = () => {
       >
         <div
           style={{ marginTop: "50px" }}
-          className="flex border xl:w-2/3 rounded w-full bg-white"
+          className="flex border xl:w-2/3 rounded w-full bg-white shadow-md"
         >
           {/* sidebar */}
           <Sidebar openModal={openModal} />
@@ -198,7 +198,7 @@ const Inbox = () => {
                 <img
                   draggable="false"
                   loading="lazy"
-                  className="w-full h-full rotate-12 object-contain"
+                  className="w-full h-full rotate-12 scale-150 "
                   src={logo}
                   alt="message"
                 />
@@ -209,7 +209,7 @@ const Inbox = () => {
               </p>
               <button
                 onClick={openModal}
-                style={{ backgroundColor: "#1B192E" }}
+                style={{ backgroundColor: "#5b064a" }}
                 className="rounded px-2.5 mt-2 py-1.5 text-white text-sm font-medium hover:drop-shadow-lg"
               >
                 Send Message
@@ -314,7 +314,7 @@ const Inbox = () => {
                       onClick={(e) => handleSubmit(e, "🐾")}
                       sx={{
                         fontSize: "1.5em",
-                        color: "#1B192E",
+                        color: "#5b064a",
                         cursor: "pointer",
                       }}
                     />

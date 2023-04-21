@@ -32,7 +32,7 @@ const Sidebar = ({ openModal, socket }) => {
           </span>
           <RateReviewOutlinedIcon
             onClick={openModal}
-            sx={{ Color: "#1B192E", cursor: "pointer" }}
+            sx={{ Color: "#5b064a", cursor: "pointer" }}
           />
         </div>
 

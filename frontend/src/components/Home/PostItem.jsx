@@ -101,22 +101,22 @@ const PostItem = ({
 
   return (
     <div
-      style={{ backgroundImage: `radial-gradient(#ffffff, #c3cdd7)` }}
-      className="flex flex-col border rounded bg-white relative"
+      style={{ backgroundImage: 'white'}}
+      className="flex flex-col border rounded bg-white relative shadow-md"
     >
       <div className="flex justify-between px-3 py-2.5 border-b items-center">
         <div className="flex space-x-3 items-center">
           <Link to={`/${postedBy.username}`}>
             <img
               draggable="false"
-              className="w-10 h-10 rounded-full object-cover"
+              className="w-10 h-10 rounded-full"
               src={BASE_PROFILE_IMAGE_URL + postedBy.avatar}
               alt="avatar"
             />
           </Link>
           <Link
             to={`/${postedBy.username}`}
-            className="text-black text-sm font-semibold"
+            className="text-sm font-semibold text-[#5b064a]"
           >
             {postedBy.username}
           </Link>
@@ -126,21 +126,21 @@ const PostItem = ({
 
       {/* post image container */}
       <div
-        className="relative flex items-center justify-center"
+        className="relative flex items-center justify-center w-full h-full"
         style={{ borderRadius: 25 }}
         onDoubleClick={setLike}
       >
         <img
-          style={{ padding: 30, backgroundColor: "#1B192E", borderRadius: 5 }}
+          style={{ padding: 30, backgroundColor: "white", borderRadius: 5 }}
           draggable="false"
           loading="lazy"
-          className="w-full h-full object-cover object-center"
+          className="w-full h-full object-full object-center"
           src={BASE_POST_IMAGE_URL + image}
           alt="post image"
         />
         {likeEffect && (
           <PetsIcon
-            style={{ color: "#DD1367", height: "5em" }}
+            style={{ color: "#d30aa8", height: "5em" }}
             className="likeEffect"
           />
         )}
@@ -149,7 +149,7 @@ const PostItem = ({
       {/* like comment container */}
       <div className="flex flex-col px-4 space-y-1 border-b pb-2 mt-2">
         {/* icons container */}
-        <div className="flex items-center justify-between py-2">
+        <div className="flex items-center justify-between py-2 text-[#5b064a]">
           <div className="flex space-x-4">
             <button onClick={handleLike}>
               {liked ? likeFill : likeIconOutline}
@@ -167,20 +167,20 @@ const PostItem = ({
         {/* likes  */}
         <span
           onClick={handleLikeModal}
-          className="font-semibold text-sm cursor-pointer"
+          className="font-semibold text-sm cursor-pointer text-[#5b064a]"
         >
           {allLikes.length} likes
         </span>
 
         {/* comment */}
-        <div className="flex flex-auto items-center space-x-1">
+        <div className="flex flex-auto items-center space-x-1 text-[#5b064a]">
           <Link
             to={`/${postedBy.username}`}
             className="text-sm font-semibold hover:underline"
           >
             {postedBy.username}
           </Link>
-          <span className="text-sm">{caption}</span>
+          <span className="text-sm text-[#5b064a]">{caption}</span>
         </div>
 
         {/* time */}
@@ -260,7 +260,7 @@ const PostItem = ({
         <button
           type="submit"
           className={`${
-            comment.trim().length < 1 ? "text-blue-300" : "text-primary-blue"
+            comment.trim().length < 1 ? "text-[#5b064a]" : "text-[#5b064a]"
           } text-sm font-semibold`}
           disabled={comment.trim().length < 1}
         >
