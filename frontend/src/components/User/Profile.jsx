@@ -188,7 +188,7 @@ const Profile = () => {
                     ) : (
                       <button
                         onClick={handleFollow}
-                        style={{ backgroundColor:"#1B192E" }}
+                        style={{ backgroundColor:"#5b064a" }}
                         className="font-medium bg-primary-blue text-sm text-white hover:shadow rounded px-6 py-1.5"
                       >
                         Follow
@@ -254,7 +254,7 @@ const Profile = () => {
               <span
                 onClick={() => setSavedTab(false)}
                 className={`${
-                  savedTab ? "text-gray-400" : "border-t border-black"
+                  savedTab ? "text-gray-400" : "border-t border-[#5b064a] text-[#5b064a]"
                 } py-3 cursor-pointer flex items-center text-[13px] uppercase gap-3 tracking-[1px] font-medium`}
               >
                 {savedTab ? postsIconOutline : postsIconFill} posts
@@ -263,7 +263,7 @@ const Profile = () => {
                 <span
                   onClick={() => setSavedTab(true)}
                   className={`${
-                    savedTab ? "border-t border-black" : "text-gray-400"
+                    savedTab ? "border-t border-[#5b064a] text-[#5b064a]" : "text-gray-400"
                   } py-3 cursor-pointer flex items-center text-[13px] uppercase gap-3 tracking-[1px] font-medium`}
                 >
                   {savedTab ? savedIconFill : savedIconOutline} saved
