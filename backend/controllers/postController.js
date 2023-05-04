@@ -4,6 +4,7 @@ const Tags = require('../models/tagsModel');
 const catchAsync = require('../middlewares/catchAsync');
 const ErrorHandler = require('../utils/errorHandler');
 const deleteFile = require('../utils/deleteFile');
+var ObjectId = require('mongoose').Types.ObjectId;
 
 // Create New Post
 exports.newPost = catchAsync(async (req, res, next) => {
@@ -239,5 +240,53 @@ exports.allPosts = catchAsync(async (req, res, next) => {
 
   return res.status(200).json({
     posts,
+  });
+});
+
+// Filter Posts By Tags ( 1 or many )
+exports.filterPostsByTags = catchAsync(async (req, res, next) => {
+  if (!req.body.tagIds) {
+    return next(new ErrorHandler('Please Provide Tag Ids', 400));
+  }
+  if (!Array.isArray(req.body.tagIds)) {
+    return next(new ErrorHandler('Please Provide Tag Ids in Array', 400));
+  }
+  if (req.body.tagIds.every((id) => !ObjectId.isValid(id))) {
+    return next(new ErrorHandler('Please Provide Valid Tag Ids', 400));
+  }
+  let tagQuery =
+    req.body?.tagIds?.length > 0 ? req.body.tagIds : { $exists: true };
+  if (Array.isArray(tagQuery)) {
+    tagQuery = tagQuery.map((id) => new ObjectId(id));
+  }
+
+  const allFilteredPosts = await Post.aggregate([
+    {
+      $match: {
+        tags: {
+          $all: tagQuery,
+        },
+      },
+    },
+    {
+      $lookup: {
+        from: 'tags',
+        localField: 'tags',
+        foreignField: '_id',
+        as: 'allTags',
+      },
+    },
+    {
+      $project: {
+        tags: 0,
+      },
+    },
+  ]);
+  if (!allFilteredPosts) {
+    return next(new ErrorHandler('No Posts Found', 404));
+  }
+  return res.status(200).json({
+    success: true,
+    posts: allFilteredPosts,
   });
 });

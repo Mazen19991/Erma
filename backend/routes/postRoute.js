@@ -9,6 +9,7 @@ const {
   updateCaption,
   saveUnsavePost,
   getPostDetails,
+  filterPostsByTags,
 } = require('../controllers/postController');
 const { isAuthenticated } = require('../middlewares/auth');
 const path = require('path');
@@ -34,6 +35,7 @@ const postUpload = multer({
 });
 
 // router.route("/post/new").post(isAuthenticated, postUpload.single('post'), newPost);
+router.route('/post/tags').post(isAuthenticated, filterPostsByTags);
 router.route('/post/new').post(isAuthenticated, newPost);
 
 router.route('/posts/all').get(allPosts);
