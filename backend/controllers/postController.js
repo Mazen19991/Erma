@@ -170,8 +170,7 @@ exports.getPostsOfFollowing = catchAsync(async (req, res, next) => {
     .limit(4)
     .skip(skipPosts);
 
-    const tags = await Tags.find()
-
+  const tags = await Tags.find();
 
   return res.status(200).json({
     success: true,
@@ -179,7 +178,6 @@ exports.getPostsOfFollowing = catchAsync(async (req, res, next) => {
     totalPosts,
     tags: tags,
   });
-
 });
 
 // Save or Unsave Post
@@ -279,6 +277,21 @@ exports.filterPostsByTags = catchAsync(async (req, res, next) => {
         localField: 'tags',
         foreignField: '_id',
         as: 'allTags',
+      },
+    },
+    {
+      $lookup: {
+        from: 'users',
+        localField: 'postedBy',
+        foreignField: '_id',
+        as: 'OwnerOfPost',
+      },
+    },
+    {
+      $match: {
+        'OwnerOfPost.following': {
+          $in: [req.user._id],
+        },
       },
     },
     {
