@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
@@ -13,13 +13,17 @@ import { FOLLOW_USER_RESET } from "../../../constants/userConstants";
 import { BASE_PROFILE_IMAGE_URL } from "../../../utils/constants";
 import SkeletonUserItem from "../../Layouts/SkeletonUserItem";
 import UserListItem from "./UserListItem";
+import MultipleSelectCheckmarks from "../../Layouts/MultipleSelect";
 
 const Sidebar = () => {
+  const [tagsArray, setTagsArray] = useState([])
   const dispatch = useDispatch();
 
   const { user } = useSelector((state) => state.user);
 
   const { error, users, loading } = useSelector((state) => state.allUsers);
+  const { tags } = useSelector((state) => state.postOfFollowing);
+  // const tag = Object.values(tags);
   const {
     error: followError,
     success,
@@ -27,6 +31,7 @@ const Sidebar = () => {
   } = useSelector((state) => state.followUser);
 
   useEffect(() => {
+   
     if (error) {
       toast.error(error);
       dispatch(clearErrors());
@@ -47,6 +52,11 @@ const Sidebar = () => {
     }
   }, [success, followError]);
 
+  useEffect(() => {
+    if(tags !== undefined){
+      setTagsArray(tags)
+  }
+  }, [tags])
   return (
     <div
       style={{
@@ -62,6 +72,7 @@ const Sidebar = () => {
         style={{ backgroundColor: "#fff", marginTop: 40, borderRadius: 25 }}
         className="ml-10 flex flex-col p-2 shadow-lg"
       >
+        <MultipleSelectCheckmarks array={tagsArray}></MultipleSelectCheckmarks>
         {/* <!-- self profile card --> */}
         <div
           style={{

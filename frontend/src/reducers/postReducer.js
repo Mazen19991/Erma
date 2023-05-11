@@ -28,6 +28,7 @@ import {
   SAVE_UNSAVE_POST_REQUEST,
   SAVE_UNSAVE_POST_RESET,
   SAVE_UNSAVE_POST_SUCCESS,
+  TAGS_FILTERING,
 } from "../constants/postConstants";
 
 // New Post Reducer
@@ -80,6 +81,7 @@ export const postOfFollowingReducer = (
         loading: false,
         posts: [...state.posts, ...payload.posts],
         totalPosts: payload.totalPosts,
+        tags: payload.tags,
       };
     case POST_FOLLOWING_RESET:
       return {
@@ -97,6 +99,13 @@ export const postOfFollowingReducer = (
       return {
         ...state,
         error: null,
+      };
+    case TAGS_FILTERING:
+      return {
+        ...state,
+        loading: false,
+        error: null,
+        posts: payload.posts,
       };
     default:
       return state;
