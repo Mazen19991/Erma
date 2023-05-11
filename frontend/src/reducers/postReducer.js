@@ -29,7 +29,8 @@ import {
   SAVE_UNSAVE_POST_RESET,
   SAVE_UNSAVE_POST_SUCCESS,
   TAGS_FILTERING,
-} from "../constants/postConstants";
+  SHOULD_RE_RENDER,
+} from '../constants/postConstants';
 
 // New Post Reducer
 export const newPostReducer = (state = { post: {} }, { type, payload }) => {
@@ -82,6 +83,7 @@ export const postOfFollowingReducer = (
         posts: [...state.posts, ...payload.posts],
         totalPosts: payload.totalPosts,
         tags: payload.tags,
+        shouldReRender: false,
       };
     case POST_FOLLOWING_RESET:
       return {
@@ -105,7 +107,13 @@ export const postOfFollowingReducer = (
         ...state,
         loading: false,
         error: null,
-        posts: payload.posts,
+        posts: payload,
+      };
+    case SHOULD_RE_RENDER:
+      return {
+        ...state,
+        shouldReRender: true,
+        posts: [],
       };
     default:
       return state;

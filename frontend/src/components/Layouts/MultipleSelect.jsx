@@ -1,12 +1,14 @@
-import * as React from "react";
-import InputLabel from "@mui/material/InputLabel";
-import MenuItem from "@mui/material/MenuItem";
-import FormControl from "@mui/material/FormControl";
-import ListItemText from "@mui/material/ListItemText";
-import Select from "@mui/material/Select";
-import Checkbox from "@mui/material/Checkbox";
-import "./MultipleSelect.css";
-import { tagsFiltering } from "../../actions/postAction";
+import * as React from 'react';
+import InputLabel from '@mui/material/InputLabel';
+import MenuItem from '@mui/material/MenuItem';
+import FormControl from '@mui/material/FormControl';
+import ListItemText from '@mui/material/ListItemText';
+import Select from '@mui/material/Select';
+import Checkbox from '@mui/material/Checkbox';
+import './MultipleSelect.css';
+import { shouldReRender, tagsFiltering } from '../../actions/postAction';
+import { useState, useEffect, useRef } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
@@ -20,49 +22,95 @@ const MenuProps = {
 };
 
 export default function MultipleSelectCheckmarks({ array }) {
-  const [checkboxLabel, setCheckboxLabel] = React.useState([]);
-
+  const [checkboxLabel, setCheckboxLabel] = useState([]);
+  const dispatch = useDispatch();
+  const count = useRef(0);
+  const { loading, error, posts } = useSelector(
+    (state) => state.postOfFollowing
+  );
   const handleChange = (event) => {
     const {
       target: { value },
     } = event;
 
-    // if (value !== "" && value !== undefined) {
-    setCheckboxLabel((state) => {
-      return [...state, ...value];
-    });
-    // }
-    console.log("value", value);
-    console.log("checkboxLabel", checkboxLabel);
+    if (value.length > 0) {
+      setCheckboxLabel(value);
+    }
   };
-  React.useEffect(() => {
+  const removeFromState = (event) => {
+    const {
+      target: { value },
+    } = event;
+    const index = checkboxLabel.findIndex(
+      (element) => element.name === value[value.length - 1].name
+    );
+    if (index > -1) {
+      checkboxLabel.splice(index, 1);
+      setCheckboxLabel([...checkboxLabel]);
+    }
+  };
+  useEffect(() => {
     if (checkboxLabel.length > 0) {
-      tagsFiltering();
+      dispatch(tagsFiltering(checkboxLabel));
     }
   }, [checkboxLabel]);
+  useEffect(() => {
+    if (
+      checkboxLabel.length === 0 &&
+      !loading &&
+      !error &&
+      count.current > 0 &&
+      posts.length > 0
+    ) {
+      dispatch(shouldReRender());
+
+      count.current = 0;
+    }
+    if (count.current === 0 && posts.length > 0) {
+      count.current++;
+    }
+  }, [error, loading, checkboxLabel]);
 
   return (
     <div>
-      <FormControl variant="standard" sx={{ m: 1, width: "94%" }}>
-        <InputLabel id="demo-multiple-checkbox-label">Tag</InputLabel>
+      <FormControl variant='standard' sx={{ m: 1, width: '94%' }}>
+        <InputLabel id='demo-multiple-checkbox-label'>Tag</InputLabel>
         <Select
-          labelId="demo-multiple-checkbox-label"
-          id="demo-multiple-checkbox"
+          labelId='demo-multiple-checkbox-label'
+          id='demo-multiple-checkbox'
           multiple
-          value={checkboxLabel.map((item) => {
-            return item.name;
-          })}
-          onChange={(event) => handleChange(event)}
-          renderValue={(selected) => selected.join(",")}
+          value={checkboxLabel.map((item) => item)}
+          onChange={(event) => {
+            const element = event.target.value[event.target.value.length - 1];
+            if (
+              checkboxLabel.findIndex((item) => item.name === element.name) ===
+              -1
+            ) {
+              handleChange(event);
+            } else {
+              removeFromState(event);
+            }
+          }}
+          renderValue={(selected) =>
+            selected.map((element) => element.name).join(',')
+          }
           MenuProps={MenuProps}
-          variant="standard"
+          variant='standard'
         >
-          {array.map(({ name, _id }) => (
-            <MenuItem key={_id} value={{ name, id: _id }}>
-              <Checkbox checked={checkboxLabel.indexOf(name) > -1} />
-              <ListItemText primary={name} />
-            </MenuItem>
-          ))}
+          {array.map(({ name, _id }) => {
+            return (
+              <MenuItem key={_id} value={{ name, id: _id }}>
+                <Checkbox
+                  checked={
+                    checkboxLabel.findIndex(
+                      (element) => element.name === name
+                    ) > -1
+                  }
+                />
+                <ListItemText primary={name} />
+              </MenuItem>
+            );
+          })}
         </Select>
       </FormControl>
     </div>
