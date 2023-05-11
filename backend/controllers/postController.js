@@ -170,11 +170,16 @@ exports.getPostsOfFollowing = catchAsync(async (req, res, next) => {
     .limit(4)
     .skip(skipPosts);
 
+    const tags = await Tags.find()
+
+
   return res.status(200).json({
     success: true,
     posts: posts,
     totalPosts,
+    tags: tags,
   });
+
 });
 
 // Save or Unsave Post
