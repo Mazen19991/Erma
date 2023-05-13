@@ -24,10 +24,7 @@ const MenuProps = {
 export default function MultipleSelectCheckmarks({ array }) {
   const [checkboxLabel, setCheckboxLabel] = useState([]);
   const dispatch = useDispatch();
-  const count = useRef(0);
-  const { loading, error, posts } = useSelector(
-    (state) => state.postOfFollowing
-  );
+
   const handleChange = (event) => {
     const {
       target: { value },
@@ -37,6 +34,7 @@ export default function MultipleSelectCheckmarks({ array }) {
       setCheckboxLabel(value);
     }
   };
+
   const removeFromState = (event) => {
     const {
       target: { value },
@@ -48,28 +46,17 @@ export default function MultipleSelectCheckmarks({ array }) {
       checkboxLabel.splice(index, 1);
       setCheckboxLabel([...checkboxLabel]);
     }
+
+    if (checkboxLabel.length === 0) {
+      dispatch(shouldReRender());
+    }
   };
+
   useEffect(() => {
     if (checkboxLabel.length > 0) {
       dispatch(tagsFiltering(checkboxLabel));
     }
   }, [checkboxLabel]);
-  useEffect(() => {
-    if (
-      checkboxLabel.length === 0 &&
-      !loading &&
-      !error &&
-      count.current > 0 &&
-      posts.length > 0
-    ) {
-      dispatch(shouldReRender());
-
-      count.current = 0;
-    }
-    if (count.current === 0 && posts.length > 0) {
-      count.current++;
-    }
-  }, [error, loading, checkboxLabel]);
 
   return (
     <div>
