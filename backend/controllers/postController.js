@@ -1,10 +1,10 @@
-const Post = require('../models/postModel');
-const User = require('../models/userModel');
-const Tags = require('../models/tagsModel');
-const catchAsync = require('../middlewares/catchAsync');
-const ErrorHandler = require('../utils/errorHandler');
-const deleteFile = require('../utils/deleteFile');
-var ObjectId = require('mongoose').Types.ObjectId;
+const Post = require("../models/postModel");
+const User = require("../models/userModel");
+const Tags = require("../models/tagsModel");
+const catchAsync = require("../middlewares/catchAsync");
+const ErrorHandler = require("../utils/errorHandler");
+const deleteFile = require("../utils/deleteFile");
+var ObjectId = require("mongoose").Types.ObjectId;
 
 // Create New Post
 exports.newPost = catchAsync(async (req, res, next) => {
@@ -18,7 +18,7 @@ exports.newPost = catchAsync(async (req, res, next) => {
     tags = await Tags.find({ _id: { $in: req.body.tags } });
   }
   if (req.body?.tags && tags.length !== req.body?.tags?.length) {
-    return next(new ErrorHandler('Tag not found', 404));
+    return next(new ErrorHandler("Tag not found", 404));
   }
   if (tags?.length > 0) {
     postData.tags = tags.map((tag) => tag._id);
@@ -40,7 +40,7 @@ exports.likeUnlikePost = catchAsync(async (req, res, next) => {
   const post = await Post.findById(req.params.id);
 
   if (!post) {
-    return next(new ErrorHandler('Post Not Found', 404));
+    return next(new ErrorHandler("Post Not Found", 404));
   }
 
   if (post.likes.includes(req.user._id)) {
@@ -51,7 +51,7 @@ exports.likeUnlikePost = catchAsync(async (req, res, next) => {
 
     return res.status(200).json({
       success: true,
-      message: 'Post Unliked',
+      message: "Post Unliked",
     });
   } else {
     post.likes.push(req.user._id);
@@ -60,7 +60,7 @@ exports.likeUnlikePost = catchAsync(async (req, res, next) => {
 
     return res.status(200).json({
       success: true,
-      message: 'Post Liked',
+      message: "Post Liked",
     });
   }
 });
@@ -70,14 +70,14 @@ exports.deletePost = catchAsync(async (req, res, next) => {
   const post = await Post.findById(req.params.id);
 
   if (!post) {
-    return next(new ErrorHandler('Post Not Found', 404));
+    return next(new ErrorHandler("Post Not Found", 404));
   }
 
   if (post.postedBy.toString() !== req.user._id.toString()) {
-    return next(new ErrorHandler('Unauthorized', 401));
+    return next(new ErrorHandler("Unauthorized", 401));
   }
 
-  await deleteFile('posts/', post.image);
+  await deleteFile("posts/", post.image);
 
   await post.remove();
 
@@ -89,7 +89,7 @@ exports.deletePost = catchAsync(async (req, res, next) => {
 
   res.status(200).json({
     success: true,
-    message: 'Post Deleted',
+    message: "Post Deleted",
   });
 });
 
@@ -98,11 +98,11 @@ exports.updateCaption = catchAsync(async (req, res, next) => {
   const post = await Post.findById(req.params.id);
 
   if (!post) {
-    return next(new ErrorHandler('Post Not Found', 404));
+    return next(new ErrorHandler("Post Not Found", 404));
   }
 
   if (post.postedBy.toString() !== req.user._id.toString()) {
-    return next(new ErrorHandler('Unauthorized', 401));
+    return next(new ErrorHandler("Unauthorized", 401));
   }
 
   post.caption = req.body.caption;
@@ -111,7 +111,7 @@ exports.updateCaption = catchAsync(async (req, res, next) => {
 
   res.status(200).json({
     success: true,
-    message: 'Post Updated',
+    message: "Post Updated",
   });
 });
 
@@ -120,11 +120,11 @@ exports.newComment = catchAsync(async (req, res, next) => {
   const post = await Post.findById(req.params.id);
 
   if (!post) {
-    return next(new ErrorHandler('Post Not Found', 404));
+    return next(new ErrorHandler("Post Not Found", 404));
   }
 
   if (post.comments.includes(req.user._id)) {
-    return next(new ErrorHandler('Already Commented', 500));
+    return next(new ErrorHandler("Already Commented", 500));
   }
 
   post.comments.push({
@@ -136,7 +136,7 @@ exports.newComment = catchAsync(async (req, res, next) => {
 
   return res.status(200).json({
     success: true,
-    message: 'Comment Added',
+    message: "Comment Added",
   });
 });
 
@@ -159,11 +159,11 @@ exports.getPostsOfFollowing = catchAsync(async (req, res, next) => {
       $in: user.following,
     },
   })
-    .populate('postedBy likes')
+    .populate("postedBy likes")
     .populate({
-      path: 'comments',
+      path: "comments",
       populate: {
-        path: 'user',
+        path: "user",
       },
     })
     .sort({ $natural: -1 })
@@ -187,7 +187,7 @@ exports.saveUnsavePost = catchAsync(async (req, res, next) => {
   const post = await Post.findById(req.params.id);
 
   if (!post) {
-    return next(new ErrorHandler('Post Not Found', 404));
+    return next(new ErrorHandler("Post Not Found", 404));
   }
 
   if (user.saved.includes(post._id.toString())) {
@@ -200,7 +200,7 @@ exports.saveUnsavePost = catchAsync(async (req, res, next) => {
 
     return res.status(200).json({
       success: true,
-      message: 'Post Unsaved',
+      message: "Post Unsaved",
     });
   } else {
     user.saved.push(post._id);
@@ -211,7 +211,7 @@ exports.saveUnsavePost = catchAsync(async (req, res, next) => {
 
     return res.status(200).json({
       success: true,
-      message: 'Post Saved',
+      message: "Post Saved",
     });
   }
 });
@@ -219,16 +219,16 @@ exports.saveUnsavePost = catchAsync(async (req, res, next) => {
 // Get Post Details
 exports.getPostDetails = catchAsync(async (req, res, next) => {
   const post = await Post.findById(req.params.id)
-    .populate('postedBy likes')
+    .populate("postedBy likes")
     .populate({
-      path: 'comments',
+      path: "comments",
       populate: {
-        path: 'user',
+        path: "user",
       },
     });
 
   if (!post) {
-    return next(new ErrorHandler('Post Not Found', 404));
+    return next(new ErrorHandler("Post Not Found", 404));
   }
 
   res.status(200).json({
@@ -249,13 +249,13 @@ exports.allPosts = catchAsync(async (req, res, next) => {
 // Filter Posts By Tags ( 1 or many )
 exports.filterPostsByTags = catchAsync(async (req, res, next) => {
   if (!req.body.tagIds) {
-    return next(new ErrorHandler('Please Provide Tag Ids', 400));
+    return next(new ErrorHandler("Please Provide Tag Ids", 400));
   }
   if (!Array.isArray(req.body.tagIds)) {
-    return next(new ErrorHandler('Please Provide Tag Ids in Array', 400));
+    return next(new ErrorHandler("Please Provide Tag Ids in Array", 400));
   }
   if (req.body.tagIds.every((id) => !ObjectId.isValid(id))) {
-    return next(new ErrorHandler('Please Provide Valid Tag Ids', 400));
+    return next(new ErrorHandler("Please Provide Valid Tag Ids", 400));
   }
   let tagQuery =
     req.body?.tagIds?.length > 0 ? req.body.tagIds : { $exists: true };
@@ -273,23 +273,23 @@ exports.filterPostsByTags = catchAsync(async (req, res, next) => {
     },
     {
       $lookup: {
-        from: 'tags',
-        localField: 'tags',
-        foreignField: '_id',
-        as: 'allTags',
+        from: "tags",
+        localField: "tags",
+        foreignField: "_id",
+        as: "allTags",
       },
     },
     {
       $lookup: {
-        from: 'users',
-        localField: 'postedBy',
-        foreignField: '_id',
-        as: 'OwnerOfPost',
+        from: "users",
+        localField: "postedBy",
+        foreignField: "_id",
+        as: "OwnerOfPost",
       },
     },
     {
       $match: {
-        'OwnerOfPost.following': {
+        "OwnerOfPost.followers": {
           $in: [req.user._id],
         },
       },
@@ -301,10 +301,14 @@ exports.filterPostsByTags = catchAsync(async (req, res, next) => {
     },
   ]);
   if (!allFilteredPosts) {
-    return next(new ErrorHandler('No Posts Found', 404));
+    return next(new ErrorHandler("No Posts Found", 404));
   }
+  const newReturnObj = allFilteredPosts.map((post) => {
+    return { ...post, postedBy: post?.OwnerOfPost[0] };
+  });
+
   return res.status(200).json({
     success: true,
-    posts: allFilteredPosts,
+    posts: newReturnObj,
   });
 });
