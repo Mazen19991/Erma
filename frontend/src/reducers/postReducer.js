@@ -1,4 +1,5 @@
 import {
+  ADD_TAGS,
   CLEAR_ERRORS,
   DELETE_POST_FAIL,
   DELETE_POST_REQUEST,
@@ -30,7 +31,7 @@ import {
   SAVE_UNSAVE_POST_SUCCESS,
   TAGS_FILTERING,
   SHOULD_RE_RENDER,
-} from '../constants/postConstants';
+} from "../constants/postConstants";
 
 // New Post Reducer
 export const newPostReducer = (state = { post: {} }, { type, payload }) => {
@@ -61,6 +62,12 @@ export const newPostReducer = (state = { post: {} }, { type, payload }) => {
       return {
         ...state,
         error: null,
+      };
+
+    case ADD_TAGS:
+      return {
+        ...state,
+        tags: payload,
       };
     default:
       return state;

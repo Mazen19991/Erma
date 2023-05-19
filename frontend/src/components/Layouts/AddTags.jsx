@@ -1,59 +1,76 @@
 import React from "react";
-import { Chip, colors } from "@mui/material";
+import { Chip, TextField, colors } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import { TAGS_FILTERING } from "../../constants/postConstants";
+import { addTags } from "../../actions/postAction";
 
 const AddTags = () => {
   const [tagsArray, setTagsArray] = useState([]);
   const [chipsSelected, setChipsSelected] = useState([]);
+  const dispatch = useDispatch();
 
   const { tags } = useSelector((state) => state.postOfFollowing);
 
   useEffect(() => {
     if (tags !== undefined) {
-      console.log("tags", tags);
       setTagsArray(tags);
     }
   }, [tags]);
 
+  useEffect(() => {
+    dispatch(addTags(chipsSelected.map((element) => element._id)));
+  }, [chipsSelected]);
+
   const chipsHandler = (tag) => {
     if (!chipsSelected.includes(tag)) setChipsSelected([...chipsSelected, tag]);
-    console.log(chipsSelected);
   };
   const removeChipsHandler = (tag) => {
     if (chipsSelected.includes(tag)) {
       const index = chipsSelected.findIndex((element) => element === tag);
-      console.log(index);
+
       if (index > -1) {
         chipsSelected.splice(index, 1);
         setChipsSelected([...chipsSelected]);
       }
-      console.log(chipsSelected);
     }
   };
 
   return (
-    <div className="flex  gap-3 justify-between">
-      {tagsArray.map(({ name, _id }) => {
+    <div className='flex  flex-wrap gap-2 '>
+      {tagsArray.map((tag, index) => {
         return (
           <>
             <Chip
-              label={name}
-              key={_id}
+              label={tag.name}
+              key={index}
               onClick={() => {
-                chipsHandler(name);
+                chipsHandler(tag);
               }}
               onDelete={() => {
-                removeChipsHandler(name);
+                removeChipsHandler(tag);
               }}
             />
           </>
         );
       })}
-      {
-        chipsSelected
-      }
+      <TextField
+        fullWidth
+        value={chipsSelected.map((element) => "#" + element.name).join(" ")}
+        inputProps={{
+          style: {
+            height: "0.5rem",
+            color: "rgba(91, 6, 74, 0.6)",
+            cursor: "default",
+          },
+          readOnly: true,
+        }}
+        sx={{
+          "& fieldset": {
+            border: "none",
+          },
+        }}
+      />
     </div>
   );
 };

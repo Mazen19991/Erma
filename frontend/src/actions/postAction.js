@@ -24,6 +24,7 @@ import {
   SAVE_UNSAVE_POST_SUCCESS,
   TAGS_FILTERING,
   SHOULD_RE_RENDER,
+  ADD_TAGS,
 } from "../constants/postConstants";
 
 // New Post
@@ -42,6 +43,14 @@ export const addNewPost = (postData) => async (dispatch) => {
       type: NEW_POST_FAIL,
       payload: error.response.data.message,
     });
+  }
+};
+
+export const addTags = (tags) => async (dispatch) => {
+  try {
+    dispatch({ type: ADD_TAGS, payload: tags });
+  } catch (error) {
+    console.log(error);
   }
 };
 
@@ -166,6 +175,8 @@ export const getPostDetails = (postId) => async (dispatch) => {
   try {
     dispatch({ type: POST_DETAILS_REQUEST });
     const { data } = await axios.get(`/api/v1/post/detail/${postId}`);
+
+    console.log(data);
 
     dispatch({
       type: POST_DETAILS_SUCCESS,

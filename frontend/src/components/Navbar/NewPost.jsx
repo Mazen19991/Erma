@@ -15,7 +15,9 @@ const NewPost = ({ newPost, setNewPost }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const { loading, success, error } = useSelector((state) => state.newPost);
+  const { loading, success, error, tags } = useSelector(
+    (state) => state.newPost
+  );
   const { user } = useSelector((state) => state.user);
 
   const [postImage, setPostImage] = useState("");
@@ -53,10 +55,15 @@ const NewPost = ({ newPost, setNewPost }) => {
       return;
     }
 
+    if (tags.length === 0) {
+      toast.error("Add Tags");
+      return;
+    }
     const formData = new FormData();
 
     formData.set("caption", caption);
     formData.set("post", postImage);
+    formData.set("tags", tags);
 
     dispatch(addNewPost(formData));
   };
@@ -168,7 +175,7 @@ const NewPost = ({ newPost, setNewPost }) => {
                 onChange={(e) => setCaption(e.target.value)}
                 onClick={() => setShowEmojis(false)}
               ></textarea>
-              <div className=' h-12 flex items-center pl-2'>
+              <div className=' h-32 flex items-center pl-2'>
                 <AddTags />
               </div>
               <div className='flex items-center justify-between'>
