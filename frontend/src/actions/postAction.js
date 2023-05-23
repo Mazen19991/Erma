@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios from 'axios';
 import {
   CLEAR_ERRORS,
   DELETE_POST_FAIL,
@@ -25,14 +25,14 @@ import {
   TAGS_FILTERING,
   SHOULD_RE_RENDER,
   ADD_TAGS,
-} from "../constants/postConstants";
+} from '../constants/postConstants';
 
 // New Post
 export const addNewPost = (postData) => async (dispatch) => {
   try {
     dispatch({ type: NEW_POST_REQUEST });
-    const config = { header: { "Content-Type": "application/json" } };
-    const { data } = await axios.post("/api/v1/post/new", postData, config);
+    const config = { header: { 'Content-Type': 'application/json' } };
+    const { data } = await axios.post('/api/v1/post/new', postData, config);
 
     dispatch({
       type: NEW_POST_SUCCESS,
@@ -81,9 +81,9 @@ export const tagsFiltering = (tags) => async (dispatch) => {
   try {
     const allTags = tags.map((tag) => tag.id);
     console.log(allTags);
-    const request = await axios.post("/api/v1/post/tags", { tagIds: allTags });
+    const request = await axios.post('/api/v1/post/tags', { tagIds: allTags });
     const { data } = request;
-    console.log("data", data);
+    console.log('data', data);
     dispatch({ type: TAGS_FILTERING, payload: data.posts });
   } catch (error) {
     dispatch({
@@ -115,7 +115,7 @@ export const likePost = (postId) => async (dispatch) => {
 export const addComment = (postId, comment) => async (dispatch) => {
   try {
     dispatch({ type: NEW_COMMENT_REQUEST });
-    const config = { header: { "Content-Type": "application/json" } };
+    const config = { header: { 'Content-Type': 'application/json' } };
     const { data } = await axios.post(
       `/api/v1/post/comment/${postId}`,
       { comment },
@@ -163,6 +163,7 @@ export const deletePost = (postId) => async (dispatch) => {
       payload: data.success,
     });
   } catch (error) {
+    console.log(error.response.data.message);
     dispatch({
       type: DELETE_POST_FAIL,
       payload: error.response.data.message,

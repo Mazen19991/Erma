@@ -135,7 +135,7 @@ const PostItem = ({
           draggable='false'
           loading='lazy'
           className='w-full h-full object-full object-center'
-          src={BASE_POST_IMAGE_URL + image}
+          src={image}
           alt='post image'
         />
         {likeEffect && (

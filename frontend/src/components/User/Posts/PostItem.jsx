@@ -1,12 +1,12 @@
-import { useEffect, useRef, useState } from "react";
-import FavoriteIcon from "@mui/icons-material/Favorite";
-import ModeCommentIcon from "@mui/icons-material/ModeComment";
-import { Dialog } from "@mui/material";
+import { useEffect, useRef, useState } from 'react';
+import FavoriteIcon from '@mui/icons-material/Favorite';
+import ModeCommentIcon from '@mui/icons-material/ModeComment';
+import { Dialog } from '@mui/material';
 import {
   BASE_POST_IMAGE_URL,
   BASE_PROFILE_IMAGE_URL,
-} from "../../../utils/constants";
-import { Link } from "react-router-dom";
+} from '../../../utils/constants';
+import { Link } from 'react-router-dom';
 import {
   commentIcon,
   emojiIcon,
@@ -14,20 +14,20 @@ import {
   saveIconFill,
   saveIconOutline,
   shareIcon,
-} from "../../Home/SvgIcons";
-import { likeFill } from "../../Navbar/SvgIcons";
-import { useDispatch, useSelector } from "react-redux";
+} from '../../Home/SvgIcons';
+import { likeFill } from '../../Navbar/SvgIcons';
+import { useDispatch, useSelector } from 'react-redux';
 import {
   addComment,
   clearErrors,
   deletePost,
   likePost,
   savePost,
-} from "../../../actions/postAction";
-import { Picker } from "emoji-mart";
-import { metaballsMenu } from "../SvgIcons";
-import moment from "moment";
-import PetsIcon from "@mui/icons-material/Pets";
+} from '../../../actions/postAction';
+import { Picker } from 'emoji-mart';
+import { metaballsMenu } from '../SvgIcons';
+import moment from 'moment';
+import PetsIcon from '@mui/icons-material/Pets';
 
 const PostItem = ({
   _id,
@@ -46,7 +46,7 @@ const PostItem = ({
   const [open, setOpen] = useState(false);
   const [liked, setLiked] = useState(false);
   const [saved, setSaved] = useState(false);
-  const [comment, setComment] = useState("");
+  const [comment, setComment] = useState('');
   const [showEmojis, setShowEmojis] = useState(false);
   const [deleteModal, setDeleteModal] = useState(false);
 
@@ -69,7 +69,7 @@ const PostItem = ({
   const handleComment = (e) => {
     e.preventDefault();
     dispatch(addComment(_id, comment));
-    setComment("");
+    setComment('');
   };
 
   const handleSave = () => {
@@ -115,7 +115,7 @@ const PostItem = ({
           draggable='false'
           loading='lazy'
           className='hover:opacity-75 group-hover:opacity-75 cursor-pointer object-cover h-full w-full'
-          src={BASE_POST_IMAGE_URL + image}
+          src={image}
           alt='Post'
         />
         <div className='hidden group-hover:flex text-white absolute pointer-events-none gap-4'>
@@ -137,7 +137,7 @@ const PostItem = ({
             <img
               draggable='false'
               className='object-contain h-full w-full'
-              src={BASE_POST_IMAGE_URL + image}
+              src={image}
               alt='post'
             />
             {likeEffect && <PetsIcon height='80px' className='likeEffect' />}
@@ -303,8 +303,8 @@ const PostItem = ({
                   type='submit'
                   className={`${
                     comment.trim().length < 1
-                      ? "text-[#5b064a]"
-                      : "text-[#5b064a]"
+                      ? 'text-[#5b064a]'
+                      : 'text-[#5b064a]'
                   } text-sm font-semibold`}
                   disabled={comment.trim().length < 1}
                 >

@@ -1,15 +1,15 @@
-import { Dialog, LinearProgress, colors } from "@mui/material";
-import { Picker } from "emoji-mart";
-import React, { useEffect, useRef, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
-import { toast } from "react-toastify";
-import { addNewPost, clearErrors } from "../../actions/postAction";
-import { NEW_POST_RESET } from "../../constants/postConstants";
-import { emojiIcon } from "../Home/SvgIcons";
-import AddToPhotosIcon from "@mui/icons-material/AddToPhotos";
-import { BASE_PROFILE_IMAGE_URL } from "../../utils/constants";
-import AddTags from "../Layouts/AddTags";
+import { Dialog, LinearProgress, colors } from '@mui/material';
+import { Picker } from 'emoji-mart';
+import React, { useEffect, useRef, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
+import { addNewPost, clearErrors } from '../../actions/postAction';
+import { NEW_POST_RESET } from '../../constants/postConstants';
+import { emojiIcon } from '../Home/SvgIcons';
+import AddToPhotosIcon from '@mui/icons-material/AddToPhotos';
+import { BASE_PROFILE_IMAGE_URL } from '../../utils/constants';
+import AddTags from '../Layouts/AddTags';
 
 const NewPost = ({ newPost, setNewPost }) => {
   const dispatch = useDispatch();
@@ -20,9 +20,9 @@ const NewPost = ({ newPost, setNewPost }) => {
   );
   const { user } = useSelector((state) => state.user);
 
-  const [postImage, setPostImage] = useState("");
-  const [postPreview, setPostPreview] = useState("");
-  const [caption, setCaption] = useState("");
+  const [postImage, setPostImage] = useState('');
+  const [postPreview, setPostPreview] = useState('');
+  const [caption, setCaption] = useState('');
   const [showEmojis, setShowEmojis] = useState(false);
   const [dragged, setDragged] = useState(false);
 
@@ -32,8 +32,8 @@ const NewPost = ({ newPost, setNewPost }) => {
 
   const handleFileChange = (e) => {
     const reader = new FileReader();
-    setPostImage("");
-    setPostPreview("");
+    setPostImage('');
+    setPostPreview('');
     reader.onload = () => {
       if (reader.readyState === 2) {
         setPostPreview(reader.result);
@@ -47,23 +47,23 @@ const NewPost = ({ newPost, setNewPost }) => {
   const newPostSubmitHandler = (e) => {
     e.preventDefault();
     if (!postImage) {
-      toast.error("Select Image");
+      toast.error('Select Image');
       return;
     }
     if (!caption.trim()) {
-      toast.error("Empty Caption");
+      toast.error('Empty Caption');
       return;
     }
 
     if (tags.length === 0) {
-      toast.error("Add Tags");
+      toast.error('Add Tags');
       return;
     }
     const formData = new FormData();
 
-    formData.set("caption", caption);
-    formData.set("post", postImage);
-    formData.set("tags", tags);
+    formData.set('caption', caption);
+    formData.set('posts', postImage);
+    tags.map((tag) => formData.append('tags', tag));
 
     dispatch(addNewPost(formData));
   };
@@ -74,14 +74,14 @@ const NewPost = ({ newPost, setNewPost }) => {
       dispatch(clearErrors());
     }
     if (success) {
-      toast.success("Post Shared");
+      toast.success('Post Shared');
       dispatch({ type: NEW_POST_RESET });
       setNewPost(false);
-      navigate("/");
+      navigate('/');
 
-      setPostImage("");
-      setPostPreview("");
-      setCaption("");
+      setPostImage('');
+      setPostPreview('');
+      setCaption('');
     }
   }, [dispatch, error, success, navigate]);
 
@@ -89,17 +89,17 @@ const NewPost = ({ newPost, setNewPost }) => {
     <Dialog open={newPost} onClose={() => setNewPost(false)} maxWidth='xl'>
       <div className='flex flex-col sm:w-screen max-w-4xl'>
         <div
-          style={{ backgroundColor: "#5b064a" }}
+          style={{ backgroundColor: '#5b064a' }}
           className='bg-white py-3 border-b px-4 flex justify-between w-full'
         >
-          <span style={{ color: "#ffebeb" }} className='font-medium'>
+          <span style={{ color: '#ffebeb' }} className='font-medium'>
             Create new post
           </span>
           <button
             onClick={newPostSubmitHandler}
             disabled={loading}
             className=' font-medium'
-            style={{ color: "#ffebeb" }}
+            style={{ color: '#ffebeb' }}
           >
             Share
           </button>
@@ -121,11 +121,11 @@ const NewPost = ({ newPost, setNewPost }) => {
               onDragEnter={handleDragChange}
               onDragLeave={handleDragChange}
               className={`${
-                dragged && "opacity-40"
+                dragged && 'opacity-40'
               } relative bg-white h-36 sm:h-[80vh] w-full flex flex-col gap-2 items-center justify-center mx-16`}
             >
-              <AddToPhotosIcon sx={{ color: "#5b064a", fontSize: "3em" }} />
-              <p style={{ color: "#5b064a" }} className='text-xl'>
+              <AddToPhotosIcon sx={{ color: '#5b064a', fontSize: '3em' }} />
+              <p style={{ color: '#5b064a' }} className='text-xl'>
                 Drag photos and videos here
               </p>
               <input
@@ -199,7 +199,7 @@ const NewPost = ({ newPost, setNewPost }) => {
                 <button
                   onClick={newPostSubmitHandler}
                   disabled={loading}
-                  style={{ backgroundColor: "#ffebeb" }}
+                  style={{ backgroundColor: '#ffebeb' }}
                   className='text-[#5b064a] px-6 py-1.5 rounded font-medium hover:drop-shadow-lg uppercase text-sm tracking-wider'
                 >
                   Post
