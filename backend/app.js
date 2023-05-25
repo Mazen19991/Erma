@@ -5,6 +5,7 @@ const path = require('path');
 const seedTagsData = require('./utils/seeder');
 const app = express();
 const fs = require('fs');
+const seederUsersAndPosts = require('./utils/seederUsersAndPosts');
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
@@ -28,6 +29,7 @@ app.use('/api/v1', message);
 if (!fs.existsSync(path.join(__dirname, '../public/posts'))) {
   fs.mkdirSync(path.join(__dirname, '../public/posts'));
 }
+
 // deployment
 __dirname = path.resolve();
 if (process.env.NODE_ENV === 'production') {
@@ -46,6 +48,9 @@ if (process.env.NODE_ENV === 'production') {
 app.use(errorMiddleware);
 
 // import data
-seedTagsData();
-
+if (process.env.SEED_DATA === 'true') {
+  (async () => {
+    await seederUsersAndPosts();
+  })();
+}
 module.exports = app;

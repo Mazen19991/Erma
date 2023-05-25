@@ -152,7 +152,7 @@ const PostItem = ({
                   <img
                     draggable='false'
                     className='w-10 h-10 rounded-full object-cover'
-                    src={BASE_PROFILE_IMAGE_URL + postedBy.avatar}
+                    src={postedBy.avatar}
                     alt='avatar'
                   />
                 </Link>
@@ -197,7 +197,7 @@ const PostItem = ({
                   <img
                     draggable='false'
                     className='w-9 h-9 rounded-full object-cover'
-                    src={BASE_PROFILE_IMAGE_URL + postedBy.avatar}
+                    src={ postedBy.avatar}
                     alt='avatar'
                   />
                 </Link>
@@ -218,7 +218,7 @@ const PostItem = ({
                     <img
                       draggable='false'
                       className='w-9 h-9 rounded-full object-cover mr-2.5'
-                      src={BASE_PROFILE_IMAGE_URL + c.user.avatar}
+                      src={ c.user.avatar}
                       alt='avatar'
                     />
                   </Link>

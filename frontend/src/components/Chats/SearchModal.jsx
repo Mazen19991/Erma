@@ -1,6 +1,5 @@
 import Dialog from "@mui/material/Dialog";
 import axios from "axios";
-import { BASE_PROFILE_IMAGE_URL } from "../../utils/constants";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
@@ -141,7 +140,7 @@ const NewDialog = ({ open, onClose }) => {
                   <img
                     draggable="false"
                     className="w-11 h-11 rounded-full object-cover"
-                    src={BASE_PROFILE_IMAGE_URL + u.avatar}
+                    src={ u.avatar}
                     alt="avatar"
                   />
                   <div className="flex flex-col items-start">

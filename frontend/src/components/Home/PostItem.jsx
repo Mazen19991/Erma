@@ -1,12 +1,11 @@
-import { useEffect, useRef, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router-dom";
-import { addComment, likePost, savePost } from "../../actions/postAction";
+import { useEffect, useRef, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
+import { addComment, likePost, savePost } from '../../actions/postAction';
 import {
   BASE_POST_IMAGE_URL,
-  BASE_PROFILE_IMAGE_URL,
-} from "../../utils/constants";
-import { likeFill } from "../Navbar/SvgIcons";
+} from '../../utils/constants';
+import { likeFill } from '../Navbar/SvgIcons';
 import {
   commentIcon,
   emojiIcon,
@@ -15,13 +14,13 @@ import {
   saveIconFill,
   saveIconOutline,
   shareIcon,
-} from "./SvgIcons";
-import { Picker } from "emoji-mart";
-import ScrollToBottom from "react-scroll-to-bottom";
-import axios from "axios";
-import moment from "moment";
-import logo from "../../assests/images/logo.png";
-import PetsIcon from "@mui/icons-material/Pets";
+} from './SvgIcons';
+import { Picker } from 'emoji-mart';
+import ScrollToBottom from 'react-scroll-to-bottom';
+import axios from 'axios';
+import moment from 'moment';
+import logo from '../../assests/images/logo.png';
+import PetsIcon from '@mui/icons-material/Pets';
 
 const PostItem = ({
   _id,
@@ -47,7 +46,7 @@ const PostItem = ({
 
   const [liked, setLiked] = useState(false);
   const [saved, setSaved] = useState(false);
-  const [comment, setComment] = useState("");
+  const [comment, setComment] = useState('');
   const [viewComment, setViewComment] = useState(false);
   const [showEmojis, setShowEmojis] = useState(false);
 
@@ -63,7 +62,7 @@ const PostItem = ({
   const handleComment = async (e) => {
     e.preventDefault();
     await dispatch(addComment(_id, comment));
-    setComment("");
+    setComment('');
     const { data } = await axios.get(`/api/v1/post/detail/${_id}`);
     setAllComments(data.post.comments);
   };
@@ -101,7 +100,7 @@ const PostItem = ({
 
   return (
     <div
-      style={{ backgroundImage: "white" }}
+      style={{ backgroundImage: 'white' }}
       className='flex flex-col border rounded bg-white relative shadow-md'
     >
       <div className='flex justify-between px-3 py-2.5 border-b items-center'>
@@ -110,7 +109,7 @@ const PostItem = ({
             <img
               draggable='false'
               className='w-10 h-10 rounded-full'
-              src={BASE_PROFILE_IMAGE_URL + postedBy.avatar}
+              src={postedBy.avatar}
               alt='avatar'
             />
           </Link>
@@ -131,7 +130,7 @@ const PostItem = ({
         onDoubleClick={setLike}
       >
         <img
-          style={{ padding: 30, backgroundColor: "white", borderRadius: 5 }}
+          style={{ padding: 30, backgroundColor: 'white', borderRadius: 5 }}
           draggable='false'
           loading='lazy'
           className='w-full h-full object-full object-center'
@@ -140,7 +139,7 @@ const PostItem = ({
         />
         {likeEffect && (
           <PetsIcon
-            style={{ color: "#d30aa8", height: "5em" }}
+            style={{ color: '#d30aa8', height: '5em' }}
             className='likeEffect'
           />
         )}
@@ -190,7 +189,7 @@ const PostItem = ({
             className='text-[13px] text-gray-500 cursor-pointer'
           >
             {viewComment
-              ? "Hide Comments"
+              ? 'Hide Comments'
               : allComments.length === 1
               ? `View ${allComments.length} Comment`
               : `View All ${allComments.length} Comments`}
@@ -209,7 +208,7 @@ const PostItem = ({
                 <img
                   draggable='false'
                   className='h-7 w-7 rounded-full object-cover mr-0.5'
-                  src={BASE_PROFILE_IMAGE_URL + c.user.avatar}
+                  src={ c.user.avatar}
                   alt='avatar'
                 />
                 <Link
@@ -260,7 +259,7 @@ const PostItem = ({
         <button
           type='submit'
           className={`${
-            comment.trim().length < 1 ? "text-[#5b064a]" : "text-[#5b064a]"
+            comment.trim().length < 1 ? 'text-[#5b064a]' : 'text-[#5b064a]'
           } text-sm font-semibold`}
           disabled={comment.trim().length < 1}
         >

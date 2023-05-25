@@ -6,6 +6,7 @@ const ErrorHandler = require('../utils/errorHandler');
 const { TYPES } = require('../../public/constants');
 const ObjectId = require('mongoose').Types.ObjectId;
 const uploadToS3 = require('../utils/uploadToS3');
+const deleteFromS3 = require('../utils/deleteFromS3');
 
 // Create New Post
 exports.newPost = catchAsync(async (req, res, next) => {
@@ -78,7 +79,6 @@ exports.likeUnlikePost = catchAsync(async (req, res, next) => {
 // Delete Post
 exports.deletePost = catchAsync(async (req, res, next) => {
   const post = await Post.findById(req.params.id);
-
   if (!post) {
     return next(new ErrorHandler('Post Not Found', 404));
   }
@@ -86,16 +86,20 @@ exports.deletePost = catchAsync(async (req, res, next) => {
   if (post.postedBy.toString() !== req.user._id.toString()) {
     return next(new ErrorHandler('Unauthorized', 401));
   }
-
-  await deleteFile('posts/', post.image);
-
-  await post.remove();
-
-  const user = await User.findById(req.user._id);
-
-  const index = user.posts.indexOf(req.params.id);
-  user.posts.splice(index, 1);
-  await user.save();
+  const dir = post.image.split('/')[4];
+  await Promise.all([
+    deleteFromS3(dir),
+    post.remove(),
+    User.updateOne(
+      {
+        _id: req.user._id,
+        posts: post._id,
+      },
+      {
+        $pull: { posts: post._id },
+      }
+    ),
+  ]);
 
   res.status(200).json({
     success: true,

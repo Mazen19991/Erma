@@ -6,21 +6,29 @@ const ErrorHandler = require('../utils/errorHandler');
 const sendEmail = require('../utils/sendEmail');
 const crypto = require('crypto');
 const deleteFile = require('../utils/deleteFile');
+const uploadToS3 = require('../utils/uploadToS3');
+const { TYPES } = require('../../public/constants');
 
 // Signup User
 exports.signupUser = catchAsync(async (req, res, next) => {
-  const { name,   species ,email, Ownername, username, password } = req.body;
+  const { name, species, email, Ownername, username, password } = req.body;
 
   const user = await User.findOne({
     $or: [{ email }, { username }],
   });
+
   if (user) {
     if (user.username === username) {
       return next(new ErrorHandler('Username already exists', 401));
     }
+
     return next(new ErrorHandler('Email already exists', 401));
   }
 
+  let directory = {};
+  if (req?.file?.fieldname) {
+    directory = await uploadToS3(TYPES.POSTS, req.file);
+  }
   const newUser = await User.create({
     name,
     species,
@@ -28,9 +36,10 @@ exports.signupUser = catchAsync(async (req, res, next) => {
     Ownername,
     username,
     password,
-    avatar: req.file.filename,
+    avatar: req?.file?.filename
+      ? `https://erma.s3.amazonaws.com/posts/${directory}`
+      : null,
   });
-
   sendCookie(newUser, 201, res);
 });
 
@@ -188,12 +197,12 @@ exports.updateProfile = catchAsync(async (req, res, next) => {
   if (userExists && userExists._id.toString() !== req.user._id.toString()) {
     return next(new ErrorHandler('User Already Exists', 404));
   }
-
   if (req.body.avatar !== '') {
     const user = await User.findById(req.user._id);
-
-    await deleteFile('profiles/', user.avatar);
-    newUserData.avatar = req.file.filename;
+    const dir = user.avatar.split('/')[4];
+    newUserData.avatar = `https://erma.s3.amazonaws.com/posts/${directory}`;
+    await deleteFromS3(dir);
+    await uploadToS3(TYPES.POSTS, req.file);
   }
 
   await User.findByIdAndUpdate(req.user._id, newUserData, {

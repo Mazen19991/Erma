@@ -4,7 +4,9 @@ const region = process.env.S3_REGION;
 const Bucket = process.env.S3_BUCKET;
 const AWS = require('aws-sdk');
 const path = require('path');
-module.exports = (type, file) => {
+const fs = require('fs');
+module.exports = async (type, file) => {
+  console.log(file);
   const s3 = new AWS.S3({
     accessKeyId,
     secretAccessKey,
@@ -12,10 +14,11 @@ module.exports = (type, file) => {
   });
   const fileName =
     file.fieldname + '_' + Date.now() + path.extname(file.originalname);
+
   const params = {
     Bucket,
     Key: `${type}/${fileName}`,
-    Body: file.buffer,
+    Body: file.buffer ? file.buffer : fs.readFileSync(file.path),
     ACL: 'public-read',
   };
   directory = s3.upload(params, async (err, data) => {
