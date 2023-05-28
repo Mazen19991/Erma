@@ -1,22 +1,16 @@
-import React from "react";
+import React, { useMemo } from "react";
 import { Chip, TextField, colors } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
-import { TAGS_FILTERING } from "../../constants/postConstants";
 import { addTags } from "../../actions/postAction";
 
 const AddTags = () => {
-  const [tagsArray, setTagsArray] = useState([]);
   const [chipsSelected, setChipsSelected] = useState([]);
   const dispatch = useDispatch();
 
-  const { tags } = useSelector((state) => state.postOfFollowing);
+  const { allTags } = useSelector((state) => state.allTags);
+  const tags = useMemo(() => { if(allTags !== undefined) return allTags.map((element) => element) })
 
-  useEffect(() => {
-    if (tags !== undefined) {
-      setTagsArray(tags);
-    }
-  }, [tags]);
 
   useEffect(() => {
     dispatch(addTags(chipsSelected.map((element) => element._id)));
@@ -37,10 +31,9 @@ const AddTags = () => {
   };
 
   return (
-    <div className='flex  flex-wrap gap-2 '>
-      {tagsArray.map((tag, index) => {
+    <div className="flex  flex-wrap gap-2 ">
+      {tags.map((tag, index) => {
         return (
-          <>
             <Chip
               label={tag.name}
               key={index}
@@ -51,7 +44,6 @@ const AddTags = () => {
                 removeChipsHandler(tag);
               }}
             />
-          </>
         );
       })}
       <TextField

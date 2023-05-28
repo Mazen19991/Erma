@@ -1,5 +1,6 @@
 import {
   ADD_TAGS,
+  GET_ALL_TAGS,
   CLEAR_ERRORS,
   DELETE_POST_FAIL,
   DELETE_POST_REQUEST,
@@ -73,6 +74,17 @@ export const newPostReducer = (state = { post: {} }, { type, payload }) => {
       return state;
   }
 };
+export const getAllTagsReducer = (state = { tags: [] }, { type, payload }) => {
+  switch (type) {
+    case GET_ALL_TAGS:
+      return {
+        ...state,
+        allTags: payload,
+      };
+    default:
+      return state;
+  }
+}
 
 export const postOfFollowingReducer = (
   state = { posts: [] },

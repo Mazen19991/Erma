@@ -165,7 +165,6 @@ const Sidebar = () => {
                 'Jobs',
                 'Privacy',
                 'Terms',
-                'Locations',
               ].map((el, i) => (
                 <a href='#' key={i}>
                   {el}
@@ -173,7 +172,7 @@ const Sidebar = () => {
               ))}
             </div>
             <div className='flex items-center space-x-1.5'>
-              {['Top Accounts', 'Hashtags', 'Language'].map((el, i) => (
+              {['Locations','Top Accounts', 'Hashtags', 'Language'].map((el, i) => (
                 <a href='#' key={i}>
                   {el}
                 </a>

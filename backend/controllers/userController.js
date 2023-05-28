@@ -103,6 +103,9 @@ exports.getUserDetails = catchAsync(async (req, res, next) => {
           path: 'user',
         },
       },
+      populate: {
+        path: 'tags',
+      }
     })
     .populate({
       path: 'posts',
@@ -124,7 +127,7 @@ exports.getUserDetails = catchAsync(async (req, res, next) => {
       populate: {
         path: 'postedBy',
       },
-    });
+    })
 
   res.status(200).json({
     success: true,

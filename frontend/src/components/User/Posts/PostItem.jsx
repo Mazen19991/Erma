@@ -51,7 +51,6 @@ const PostItem = ({
   const [deleteModal, setDeleteModal] = useState(false);
 
   const [likeEffect, setLikeEffect] = useState(false);
-
   // const [allTags, setAllTags] = useState([
   //   { _id: "643da515351dcdbe9416de14", name: "Adoption" },
   //   { _id: "643da52057cd15afcf9043b2", name: "Lost And Found" },
@@ -254,7 +253,7 @@ const PostItem = ({
                 </div>
 
                 {/* Tags */}
-                <span className='italic text-sm'>#Adoption</span>
+                <span className='italic text-sm'>{tags.map((t) => {return '#'+t.name}).join(' ')}</span>
 
                 {/* likes  */}
                 <span className='w-full font-semibold text-sm'>

@@ -25,6 +25,7 @@ import {
   TAGS_FILTERING,
   SHOULD_RE_RENDER,
   ADD_TAGS,
+  GET_ALL_TAGS,
 } from '../constants/postConstants';
 
 // New Post
@@ -54,6 +55,15 @@ export const addTags = (tags) => async (dispatch) => {
   }
 };
 
+export const getAllTags = () => async (dispatch) => {
+  try {
+    const { data } = await axios.get('/api/v1/post/tags');
+    dispatch({ type: GET_ALL_TAGS, payload: data.tags  });
+  } catch (error) {
+    console.log(error);
+  }
+}
+
 // Get Post of Followings
 export const getPostsOfFollowing =
   (page = 1) =>
@@ -80,10 +90,8 @@ export const getPostsOfFollowing =
 export const tagsFiltering = (tags) => async (dispatch) => {
   try {
     const allTags = tags.map((tag) => tag.id);
-    console.log(allTags);
     const request = await axios.post('/api/v1/post/tags', { tagIds: allTags });
     const { data } = request;
-    console.log('data', data);
     dispatch({ type: TAGS_FILTERING, payload: data.posts });
   } catch (error) {
     dispatch({
