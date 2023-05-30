@@ -3,6 +3,7 @@ import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import { followUser } from "../../../actions/userAction";
 import { BASE_PROFILE_IMAGE_URL } from "../../../utils/constants";
+import { SHOULD_RE_RENDER } from "../../../constants/postConstants";
 
 const UserListItem = ({ _id, username, avatar }) => {
   const dispatch = useDispatch();
@@ -12,6 +13,7 @@ const UserListItem = ({ _id, username, avatar }) => {
   const handleFollow = () => {
     setFollow(!follow);
     dispatch(followUser(_id));
+    dispatch({ type: SHOULD_RE_RENDER });
   };
 
   return (
