@@ -94,9 +94,10 @@ export const tagsFiltering = (tags) => async (dispatch) => {
     const { data } = request;
     dispatch({ type: TAGS_FILTERING, payload: data.posts });
   } catch (error) {
+   
     dispatch({
       type: POST_FOLLOWING_FAIL,
-      payload: error.response.data.message,
+      payload: error.message,
     });
   }
 };

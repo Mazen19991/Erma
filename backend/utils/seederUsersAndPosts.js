@@ -1,7 +1,7 @@
-const bcrypt = require("bcrypt");
-const User = require("../models/userModel");
-const Tag = require("../models/tagsModel");
-const Post = require("../models/postModel");
+const bcrypt = require('bcrypt');
+const User = require('../models/userModel');
+const Tag = require('../models/tagsModel');
+const Post = require('../models/postModel');
 // read 2 images and upload to s3
 
 module.exports = async () => {
@@ -10,495 +10,48 @@ module.exports = async () => {
     await User.deleteMany();
     await Tag.deleteMany();
     await Post.deleteMany();
-
-    const names2 = [
-      "Mohammad Oliver",
-      "Ruby Noland",
-      "Jadyn Suarez",
-      "Debra Deutsch",
-      "Blanca Palmer",
-      "Fletcher Villalobos",
-      "Isidro Roth",
-      "Brodie Koch",
-      "Charles Tyree",
-      "Stefanie Kwon",
-      "India Enriquez",
-      "Mariela Switzer",
-      "Kenton Noll",
-      "Dion Faber",
-      "Landon McCloud",
-      "Bailey Beckett",
-      "Tara Breen",
-      "Taniya Meade",
-      "Wyatt Choate",
-      "Eboni Castellano",
-      "Kaili Clark",
-      "Braden Holguin",
-      "Ayden Minter",
-      "Francesca McCauley",
-      "Moriah Crump",
-    ];
-
-    const names1 = [
-      "Triniti Honeycutt",
-      "Everett Spears",
-      "Nathan Amaral",
-      "Chester Flowers",
-      "Mackenzi Marx",
-      "Carl Priest",
-      "Naomi Stubbs",
-      "Rubi Roland",
-      "Citlalli Adams",
-      "Arden Sowell",
-      "Margo Batista",
-      "Karyme Hamrick",
-      "Matthew Cornwell",
-      "Simran Padgett",
-      "Annaliese Jarrett",
-      "Emerson Valdez",
-      "Sage Crowell",
-      "Serenity Willard",
-      "Gunnar Street",
-      "Armand Vinson",
-      "Adriel Leon",
-      "Meaghan Brand",
-      "Ervin Benavides",
-      "Tre Hanna",
-      "Johnpaul Yarbrough",
-    ];
-
-    const emails1 = [
-      "trinitihoneycutt@gmail.com",
-      "everettspears@gmail.com",
-      "nathanamaral@gmail.com",
-      "chesterflowers@gmail.com",
-      "mackenzimarx@gmail.com",
-      "carlpriest@gmail.com",
-      "naomistubbs@gmail.com",
-      "rubiroland@gmail.com",
-      "citlalliadams@gmail.com",
-      "ardensowell@gmail.com",
-      "margobatista@gmail.com",
-      "karymehamrick@gmail.com",
-      "matthewcornwell@gmail.com",
-      "simranpadgett@gmail.com",
-      "annaliesejarrett@gmail.com",
-      "emersonvaldez@gmail.com",
-      "sagecrowell@gmail.com",
-      "serenitywillard@gmail.com",
-      "gunnarstreet@gmail.com",
-      "armandvinson@gmail.com",
-      "adrielleon@gmail.com",
-      "meaghanbrand@gmail.com",
-      "ervinbenavides@gmail.com",
-      "trehanna@gmail.com",
-      "johnpaulyarbrough@gmail.com",
-    ];
-
-    const emails2 = [
-      "mohammadoliver@gmail.com",
-      "rubynoland@gmail.com",
-      "jadynsuarez@gmail.com",
-      "debradeutsch@gmail.com",
-      "blancapalmer@gmail.com",
-      "fletchervillalobos@gmail.com",
-      "isidroroth@gmail.com",
-      "brodiekoch@gmail.com",
-      "charlestyree@gmail.com",
-      "stefaniekwon@gmail.com",
-      "indiaenriquez@gmail.com",
-      "marielaswitzer@gmail.com",
-      "kentonnoll@gmail.com",
-      "dionfaber@gmail.com",
-      "landonmccloud@gmail.com",
-      "baileybeckett@gmail.com",
-      "tarabreen@gmail.com",
-      "taniyameade@gmail.com",
-      "wyattchoate@gmail.com",
-      "ebonicastellano@gmail.com",
-      "kailiclark@gmail.com",
-      "bradenholguin@gmail.com",
-      "aydenminter@gmail.com",
-      "francescamccauley@gmail.com",
-      "moriahcrump@gmail.com",
-    ];
-
-    const usernames1 = [
-      "trinitihoneycutt0",
-      "everettspears1",
-      "nathanamaral2",
-      "chesterflowers3",
-      "mackenzimarx4",
-      "carlpriest5",
-      "naomistubbs6",
-      "rubiroland7",
-      "citlalliadams8",
-      "ardensowell9",
-      "margobatista10",
-      "karymehamrick11",
-      "matthewcornwell12",
-      "simranpadgett13",
-      "annaliesejarrett14",
-      "emersonvaldez15",
-      "sagecrowell16",
-      "serenitywillard17",
-      "gunnarstreet18",
-      "armandvinson19",
-      "adrielleon20",
-      "meaghanbrand21",
-      "ervinbenavides22",
-      "trehanna23",
-      "johnpaulyarbrough24",
-    ];
-    const usernames2 = [
-      "mohammadoliver25",
-      "rubynoland26",
-      "jadynsuarez27",
-      "debradeutsch28",
-      "blancapalmer29",
-      "fletchervillalobos30",
-      "isidroroth31",
-      "brodiekoch32",
-      "charlestyree33",
-      "stefaniekwon34",
-      "indiaenriquez35",
-      "marielaswitzer36",
-      "kentonnoll37",
-      "dionfaber38",
-      "landonmccloud39",
-      "baileybeckett40",
-      "tarabreen41",
-      "taniyameade42",
-      "wyattchoate43",
-      "ebonicastellano44",
-      "kailiclark45",
-      "bradenholguin46",
-      "aydenminter47",
-      "francescamccauley48",
-      "moriahcrump49",
-    ];
-    const cat1 = [
-      "cat1",
-      "cat2",
-      "cat3",
-      "cat4",
-      "cat5",
-      "cat6",
-      "cat7",
-      "cat8",
-      "cat9",
-      "cat10",
-      "cat11",
-      "cat12",
-      "cat13",
-      "cat14",
-      "cat15",
-      "cat16",
-      "cat17",
-      "cat18",
-      "cat19",
-      "cat20",
-      "cat21",
-      "cat22",
-      "cat23",
-      "cat24",
-      "cat25",
-    ];
-
-    const cat2 = [
-      "cat26",
-      "cat27",
-      "cat28",
-      "cat29",
-      "cat30",
-      "cat31",
-      "cat32",
-      "cat33",
-      "cat34",
-      "cat35",
-      "cat36",
-      "cat37",
-      "cat38",
-      "cat39",
-      "cat40",
-      "cat41",
-      "cat42",
-      "cat43",
-      "cat44",
-      "cat45",
-      "cat46",
-      "cat47",
-      "cat48",
-      "cat49",
-      "cat50",
-    ];
-
-    const cat3 = [
-      "cat51",
-      "cat52",
-      "cat53",
-      "cat54",
-      "cat55",
-      "cat56",
-      "cat57",
-      "cat58",
-      "cat59",
-      "cat60",
-      "cat61",
-      "cat62",
-      "cat63",
-      "cat64",
-      "cat65",
-      "cat66",
-      "cat67",
-      "cat68",
-      "cat69",
-      "cat70",
-      "cat71",
-      "cat72",
-      "cat73",
-      "cat74",
-      "cat75",
-    ];
-
-    const cat4 = [
-      "cat76",
-      "cat77",
-      "cat78",
-      "cat79",
-      "cat80",
-      "cat81",
-      "cat82",
-      "cat83",
-      "cat84",
-      "cat85",
-      "cat86",
-      "cat87",
-      "cat88",
-      "cat89",
-      "cat90",
-      "cat91",
-      "cat92",
-      "cat93",
-      "cat94",
-      "cat95",
-      "cat96",
-      "cat97",
-      "cat98",
-      "cat99",
-      "cat100",
-    ];
-
-    const dog1 = [
-      "dog1",
-      "dog2",
-      "dog3",
-      "dog4",
-      "dog5",
-      "dog6",
-      "dog7",
-      "dog8",
-      "dog9",
-      "dog10",
-      "dog11",
-      "dog12",
-      "dog13",
-      "dog14",
-      "dog15",
-      "dog16",
-      "dog17",
-      "dog18",
-      "dog19",
-      "dog20",
-      "dog21",
-      "dog22",
-      "dog23",
-      "dog24",
-      "dog25",
-    ];
-
-    const dog2 = [
-      "dog26",
-      "dog27",
-      "dog28",
-      "dog29",
-      "dog30",
-      "dog31",
-      "dog32",
-      "dog33",
-      "dog34",
-      "dog35",
-      "dog36",
-      "dog37",
-      "dog38",
-      "dog39",
-      "dog40",
-      "dog41",
-      "dog42",
-      "dog43",
-      "dog44",
-      "dog45",
-      "dog46",
-      "dog47",
-      "dog48",
-      "dog49",
-      "dog50",
-    ];
-
-    const dog3 = [
-      "dog51",
-      "dog52",
-      "dog53",
-      "dog54",
-      "dog55",
-      "dog56",
-      "dog57",
-      "dog58",
-      "dog59",
-      "dog60",
-      "dog61",
-      "dog62",
-      "dog63",
-      "dog64",
-      "dog65",
-      "dog66",
-      "dog67",
-      "dog68",
-      "dog69",
-      "dog70",
-      "dog71",
-      "dog72",
-      "dog73",
-      "dog74",
-      "dog75",
-    ];
-
-    const dog4 = [
-      "dog76",
-      "dog77",
-      "dog78",
-      "dog79",
-      "dog80",
-      "dog81",
-      "dog82",
-      "dog83",
-      "dog84",
-      "dog85",
-      "dog86",
-      "dog87",
-      "dog88",
-      "dog89",
-      "dog90",
-      "dog91",
-      "dog92",
-      "dog93",
-      "dog94",
-      "dog95",
-      "dog96",
-      "dog97",
-      "dog98",
-      "dog99",
-      "dog100",
-    ];
-
-    const avatar1 = [
-      "avatar1",
-      "avatar2",
-      "avatar3",
-      "avatar4",
-      "avatar5",
-      "avatar6",
-      "avatar7",
-      "avatar8",
-      "avatar9",
-      "avatar10",
-      "avatar11",
-      "avatar12",
-      "avatar13",
-      "avatar14",
-      "avatar15",
-      "avatar16",
-      "avatar17",
-      "avatar18",
-      "avatar19",
-      "avatar20",
-      "avatar21",
-      "avatar22",
-      "avatar23",
-      "avatar24",
-      "avatar25",
-    ];
-
-    const avatar2 = [
-      "avatar26",
-      "avatar27",
-      "avatar28",
-      "avatar29",
-      "avatar30",
-      "avatar31",
-      "avatar32",
-      "avatar33",
-      "avatar34",
-      "avatar35",
-      "avatar36",
-      "avatar37",
-      "avatar38",
-      "avatar39",
-      "avatar40",
-      "avatar41",
-      "avatar42",
-      "avatar43",
-      "avatar44",
-      "avatar45",
-      "avatar46",
-      "avatar47",
-      "avatar48",
-      "avatar49",
-      "avatar50",
-    ];
-
-    for(let i = 0; i <= 49; i++){
-    let users = [
+    
+    const users = [
       {
-        name: "",
-        Ownername: "",
-        email: "",
-        username: "",
-        password: "123456",
-        avatar: "man-2.jpeg",
-        bio: "I am a dog lover 1",
+        name: 'John Doe',
+        Ownername: 'John Doe',
+        email: 'john@gmail.com',
+        username: 'john',
+        password: '123456',
+        avatar: 'avatar1.jpeg',
+        bio: 'I am a dog lover 1',
         posts: [
           {
-            caption: "Hello my fellow creature 1",
-            image: "",
-            postedBy: "",
+            caption: 'Hello my fellow creature 1',
+            image: 'dog1.jpeg',
+            postedBy: '',
             likes: [],
             savedBy: [],
             comments: [],
             tags: [
               {
-                name: "Adoption",
-                value: "Adoption",
+                name: 'Adoption',
+                value: 'Adoption',
                 isAvailable: true,
               },
             ],
           },
           {
-            caption: "Hello my fellow creature 2",
-            image: "",
-            postedBy: "",
+            caption: 'Hello my fellow creature 2',
+            image: 'dog2.jpeg',
+            postedBy: '',
             likes: [],
             savedBy: [],
             comments: [],
             tags: [
               {
-                name: "Adoption",
-                value: "Adoption",
+                name: 'Adoption',
+                value: 'Adoption',
                 isAvailable: true,
               },
               {
-                name: "Lost and Found",
-                value: "Lost and Found",
+                name: 'Lost and Found',
+                value: 'Lost and Found',
                 isAvailable: true,
               },
             ],
@@ -506,28 +59,28 @@ module.exports = async () => {
         ],
         followers: [],
         following: [],
-        species: "Dog",
+        species: 'Dog',
       },
       {
-        name: "",
-        Ownername: "",
-        email: "",
-        username: "",
-        password: "123456",
-        avatar: "man-3.jpeg",
-        bio: "I am a dog lover 2",
+        name: 'James Smith',
+        Ownername: 'James Smith',
+        email: 'james@gmail.com',
+        username: 'james',
+        password: '123456',
+        avatar: 'avatar2.jpeg',
+        bio: 'I am a dog lover 2',
         posts: [
           {
-            caption: "Hello my fellow creature 3",
-            image: "",
-            postedBy: "",
+            caption: 'Hello my fellow creature 3',
+            image: 'dog4.jpeg',
+            postedBy: '',
             likes: [],
             savedBy: [],
             comments: [],
             tags: [
               {
-                name: "Adoption",
-                value: "Adoption",
+                name: 'Adoption',
+                value: 'Adoption',
                 isAvailable: true,
               },
             ],
@@ -535,17 +88,15 @@ module.exports = async () => {
         ],
         followers: [],
         following: [],
-        species: "Dog",
+        species: 'Dog',
       },
     ];
-  }
-
-    console.log("seeding users and posts");
+    console.log('seeding users and posts');
     // traverse over the users array and fetch all tags from each user's posts array and then get the unique tags depending on the name of the tag
     const tags = users
       .map((user) => user.posts.map((post) => post.tags))
       .flat(2);
-    console.log("Finished Tags");
+    console.log('Finished Tags');
     const uniqueTags = [...new Set(tags.map((tag) => tag.name))].map((tag) => {
       return {
         name: tag,
@@ -554,11 +105,11 @@ module.exports = async () => {
       };
     });
     //  step 1 insert unique tags into the database
-    console.log("Inserting all tags");
+    console.log('Inserting all tags');
     const allTags = await Tag.insertMany(uniqueTags);
     // step 2
     // insert all the users without their posts
-    console.log("Finalizing users");
+    console.log('Finalizing users');
     const insertUsers = await Promise.all(
       users.map(async (user) => {
         const {
@@ -586,12 +137,12 @@ module.exports = async () => {
         };
       })
     );
-    console.log("Inserting all users");
+    console.log('Inserting all users');
     const allUsers = await User.insertMany(insertUsers);
-    console.log("Finalizing posts");
+    console.log('Finalizing posts');
     // step 3
     // insert all the posts and link them to the users by their _id and also link the tags to the posts by their _id
-    console.log("Inserting all posts");
+    console.log('Inserting all posts');
     const insertPosts = users.map((user) => {
       const { posts } = user;
       return posts.map((post) => {
@@ -615,7 +166,7 @@ module.exports = async () => {
     const allPosts = await Post.insertMany(insertPosts.flat(2));
 
     // step 4
-    console.log("updating users");
+    console.log('updating users');
 
     const updatePosts = allPosts.map((post) => {
       const { postedBy } = post;
@@ -626,7 +177,7 @@ module.exports = async () => {
         )._id,
       };
     });
-    console.log("updating all users with their posts");
+    console.log('updating all users with their posts');
     // match from allPosts array and update the user with the posts
     const postsByUser = allPosts.reduce((acc, post) => {
       const { postedBy } = post;
@@ -651,5 +202,4 @@ module.exports = async () => {
     console.log(error);
     process.exit(1);
   }
-
 };

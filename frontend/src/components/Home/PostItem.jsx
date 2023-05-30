@@ -31,6 +31,7 @@ const PostItem = ({
   createdAt,
   setUsersDialog,
   setUsersList,
+  allTags,
 }) => {
   const dispatch = useDispatch();
   const commentInput = useRef(null);
@@ -160,13 +161,20 @@ const PostItem = ({
             </button>
           </div>
         </div>
-        Tags
+        {/* Tags */}
         <span className="italic text-sm">
-          {tags
-            .map((t) => {
-              return "#" + t.name;
-            })
-            .join(" ")}
+          {tags !== undefined
+            ? tags
+                .map((t) => {
+                  return "#" + t.name;
+                })
+                .join(" ")
+            : allTags &&
+              allTags
+                .map((t) => {
+                  return "#" + t.name;
+                })
+                .join(" ")}
         </span>
         {/* likes  */}
         <span
