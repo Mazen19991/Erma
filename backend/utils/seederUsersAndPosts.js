@@ -10,8 +10,8 @@ module.exports = async () => {
     await Tag.deleteMany();
     await Post.deleteMany();
 
-    const names1 = [
-      'Admin Test',
+    const names2 = [
+      'Mohammad Oliver',
       'Ruby Noland',
       'Jadyn Suarez',
       'Debra Deutsch',
@@ -37,8 +37,8 @@ module.exports = async () => {
       'Francesca McCauley',
       'Moriah Crump',
     ];
-    const names2 = [
-      'Triniti Honeycutt',
+    const names1 = [
+      'Admin',
       'Everett Spears',
       'Nathan Amaral',
       'Chester Flowers',
