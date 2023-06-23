@@ -7,8 +7,8 @@ import PetsIcon from "@mui/icons-material/Pets";
 export const moreIcons = (
   <svg
     aria-label="More options"
-    color="#262626"
-    fill="#262626"
+    color="#5b064a"
+    fill="#5b064a "
     height="24"
     role="img"
     viewBox="0 0 24 24"
@@ -21,18 +21,18 @@ export const moreIcons = (
 );
 
 export const likeIconOutline = (
-  <PetsIcon sx={{ fontSize: "1.5em", color: "#1B192E" }} />
+  <PetsIcon sx={{ fontSize: "1.5em", color: "#5b064a" }} />
 );
 
 export const likeIconFill = (
-  <PetsIcon sx={{ fontSize: "1.5em", color: "#DD1367" }} />
+  <PetsIcon sx={{ fontSize: "1.5em", color: "#d30aa8" }} />
 );
 
 export const commentIcon = (
   <CommentOutlinedIcon
     sx={{
       fontSize: "1.5em",
-      color: "#1B192E",
+      color: "#5b064a",
     }}
   />
 );
@@ -42,13 +42,13 @@ export const shareIcon = (
 );
 
 export const saveIconOutline = (
-  <BookmarkBorderOutlinedIcon sx={{ fontSize: "1.5em", color: "#1B192E" }} />
+  <BookmarkBorderOutlinedIcon sx={{ fontSize: "1.5em", color: "#5b064a" }} />
 );
 
 export const saveIconFill = (
-  <BookmarkIcon sx={{ fontSize: "1.5em", color: "#1B192E" }} />
+  <BookmarkIcon sx={{ fontSize: "1.5em", color: "#5b064a" }} />
 );
 
 export const emojiIcon = (
-  <EmojiEmotionsIcon sx={{ fontSize: "1.5em", color: "#1B192E" }} />
+  <EmojiEmotionsIcon sx={{ fontSize: "1.5em", color: "#5b064a" }} />
 );

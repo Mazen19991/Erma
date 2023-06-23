@@ -10,8 +10,8 @@ import PetsIcon from "@mui/icons-material/Pets";
 export const searchIcon = (
   <svg
     aria-label="Search"
-    color="#1B192E"
-    fill="#1B192E"
+    color="#5b064a"
+    fill="#5b064a"
     height="16"
     role="img"
     viewBox="0 0 24 24"
@@ -42,8 +42,8 @@ export const searchIcon = (
 export const homeOutline = (
   <svg
     aria-label="Home"
-    color="#fff"
-    fill="#fff"
+    color="#5b064a"
+    fill="#5b064a"
     height="24"
     role="img"
     viewBox="0 0 24 24"
@@ -61,9 +61,9 @@ export const homeOutline = (
 export const homeFill = (
   <svg
     aria-label="Home"
-    color="#fff"
-    fill="#fff"
-    height="24"
+    color="#5b064a"
+    fill="#5b064a"
+      height="24"
     role="img"
     viewBox="0 0 24 24"
     width="24"
@@ -73,17 +73,17 @@ export const homeFill = (
 );
 
 export const messageOutline = (
-  <MarkUnreadChatAltOutlinedIcon sx={{ fontSize: "1.8em", color: "white" }} />
+  <MarkUnreadChatAltOutlinedIcon sx={{ fontSize: "1.8em", color: "#5b064a"}} />
 );
 export const messageFill = (
-  <MarkUnreadChatAltIcon sx={{ fontSize: "1.8em", color: "white" }} />
+  <MarkUnreadChatAltIcon sx={{ fontSize: "1.8em", color: "#5b064a" }} />
 );
 
 export const exploreOutline = (
   <svg
     aria-label="Find People"
-    color="#fff"
-    fill="#fff"
+    color="#5b064a"
+    fill="#5b064a"
     height="24"
     role="img"
     viewBox="0 0 24 24"
@@ -115,26 +115,26 @@ export const exploreOutline = (
 );
 
 export const likeFill = (
-  <PetsIcon sx={{ fontSize: "1.5em", color: "#DD1367" }} />
+  <PetsIcon sx={{ fontSize: "1.5em", color: "#d30aa8" }} />
 );
 
 export const likeOutline = (
-  <PetsIcon sx={{ fontSize: "1.5em", color: "#1B192E" }} />
+  <PetsIcon sx={{ fontSize: "1.5em", color: "#d30aa8" }} />
 );
 
 export const postUploadOutline = (
-  <AddCircleOutlineIcon sx={{ color: "white", fontSize: "2em" }} />
+  <AddCircleOutlineIcon sx={{ color: "#5b064a", fontSize: "2em"}} />
 );
 
 export const profileIcon = (
-  <AccountCircleIcon sx={{ fontSize: "1.5em", color: "#1B192E" }} />
+  <AccountCircleIcon sx={{ fontSize: "1.5em", color: "#5b064a" }} />
 );
 export const savedIcon = (
-  <BookmarkIcon sx={{ fontSize: "1.5em", color: "#1B192E" }} />
+  <BookmarkIcon sx={{ fontSize: "1.5em", color: "#5b064a" }} />
 );
 export const settingsIcon = (
-  <SettingsIcon sx={{ fontSize: "1.5em", color: "#1B192E" }} />
+  <SettingsIcon sx={{ fontSize: "1.5em", color: "#5b064a" }} />
 );
 export const switchAccountIcon = (
-  <SwitchAccountIcon sx={{ fontSize: "1.5em", color: "#1B192E" }} />
+  <SwitchAccountIcon sx={{ fontSize: "1.5em", color: "#5b064a" }} />
 );

@@ -1,19 +1,19 @@
-import { useEffect, useState } from "react";
-import PostContainer from "./Posts/PostContainer";
-import { useDispatch, useSelector } from "react-redux";
-import { Link, useNavigate, useParams } from "react-router-dom";
-import { BASE_PROFILE_IMAGE_URL } from "../../utils/constants";
+import { useEffect, useState } from 'react';
+import PostContainer from './Posts/PostContainer';
+import { useDispatch, useSelector } from 'react-redux';
+import { Link, useNavigate, useParams } from 'react-router-dom';
+import { BASE_PROFILE_IMAGE_URL } from '../../utils/constants';
 import {
   clearErrors,
   followUser,
   getUserDetails,
-} from "../../actions/userAction";
+} from '../../actions/userAction';
 import {
   clearErrors as clearChatErrors,
   addNewChat,
-} from "../../actions/chatAction";
-import { toast } from "react-toastify";
-import BackdropLoader from "../Layouts/BackdropLoader";
+} from '../../actions/chatAction';
+import { toast } from 'react-toastify';
+import BackdropLoader from '../Layouts/BackdropLoader';
 import {
   metaballsMenu,
   postsIconFill,
@@ -21,16 +21,16 @@ import {
   savedIconFill,
   savedIconOutline,
   settingsIcon,
-} from "./SvgIcons";
+} from './SvgIcons';
 import {
   FOLLOW_USER_RESET,
   USER_DETAILS_RESET,
-} from "../../constants/userConstants";
-import UsersDialog from "../Layouts/UsersDialog";
-import { NEW_CHAT_RESET } from "../../constants/chatConstants";
-import MetaData from "../Layouts/MetaData";
-import NotFound from "../Errors/NotFound";
-import photosempty from "../../assests/images/photosempty.png";
+} from '../../constants/userConstants';
+import UsersDialog from '../Layouts/UsersDialog';
+import { NEW_CHAT_RESET } from '../../constants/chatConstants';
+import MetaData from '../Layouts/MetaData';
+import NotFound from '../Errors/NotFound';
+import photosempty from '../../assests/images/photosempty.png';
 
 const Profile = () => {
   const dispatch = useDispatch();
@@ -128,61 +128,58 @@ const Profile = () => {
             paddingTop: 10,
             paddingX: 35,
             paddingBottom: 5,
-            backgroundImage:
-              "linear-gradient(to bottom right, #54affa,rgb(125, 123, 243))",
-            opacity: "1",
-            backgroundSize: "100% 100%",
-            animation: "gradient 10s ease infinite",
+            backgroundImage: 'white',
+            backgroundSize: '100% 100%',
           }}
-          className="mt-16 mx-auto"
+          className='mt-16 mx-auto'
         >
           <div
-            style={{ backgroundColor: "white" }}
-            className="sm:flex w-full sm:py-8"
+            style={{ backgroundColor: 'white' }}
+            className='sm:flex w-full sm:py-8 text-[#5b064a]'
           >
             {/* profile picture */}
-            <div className="sm:w-1/3 flex justify-center mx-auto sm:mx-0">
+            <div className='sm:w-1/3 flex justify-center mx-auto sm:mx-0'>
               <img
-                draggable="false"
-                className="w-40 h-40 rounded-full object-cover"
-                src={BASE_PROFILE_IMAGE_URL + user.avatar}
-                alt=""
+                draggable='false'
+                className='w-40 h-40 rounded-full object-cover'
+                src={user.avatar}
+                alt=''
               />
             </div>
 
             {/* profile details */}
-            <div className="flex flex-col gap-6 p-4 sm:w-2/3 sm:p-1">
-              <div className="flex items-center gap-8 sm:justify-start justify-between">
+            <div className='flex flex-col gap-6 p-4 sm:w-2/3 sm:p-1'>
+              <div className='flex items-center gap-8 sm:justify-start justify-between'>
                 <h2
-                  className="text-2xl sm:text-3xl"
-                  style={{ color: "#1B192E" }}
+                  className='text-2xl sm:text-3xl'
+                  style={{ color: '#5b064a' }}
                 >
                   {user.username}
                 </h2>
                 {loggedInUser.username === user.username ? (
-                  <div className="flex gap-3 items-center">
+                  <div className='flex gap-3 items-center'>
                     <Link
-                      to="/accounts/edit"
-                      className="border font-medium hover:bg-gray-50 text-sm rounded px-2 py-1"
-                      style={{ backgroundColor: "#1B192E", color: "white" }}
+                      to='/accounts/edit'
+                      className='border font-medium hover:bg-gray-50 text-sm rounded px-2 py-1'
+                      style={{ backgroundColor: '#5b064a', color: 'white' }}
                     >
                       Edit Profile
                     </Link>
-                    <Link to="/accounts/edit">{settingsIcon}</Link>
+                    <Link to='/accounts/edit'>{settingsIcon}</Link>
                   </div>
                 ) : (
-                  <div className="flex gap-3 items-center">
+                  <div className='flex gap-3 items-center'>
                     {follow ? (
                       <>
                         <button
                           onClick={addToChat}
-                          className="border rounded px-2.5 py-[0.3rem] text-sm font-medium hover:bg-gray-100"
+                          className='border rounded px-2.5 py-[0.3rem] text-sm font-medium hover:bg-gray-100'
                         >
                           Message
                         </button>
                         <button
                           onClick={handleFollow}
-                          className="font-medium text-sm bg-red-50 rounded py-1.5 px-3 text-red-600 hover:bg-red-100 hover:text-red-700"
+                          className='font-medium text-sm bg-red-50 rounded py-1.5 px-3 text-red-600 hover:bg-red-100 hover:text-red-700'
                         >
                           Unfollow
                         </button>
@@ -190,42 +187,44 @@ const Profile = () => {
                     ) : (
                       <button
                         onClick={handleFollow}
-                        style={{ backgroundColor:"#1B192E" }}
-                        className="font-medium bg-primary-blue text-sm text-white hover:shadow rounded px-6 py-1.5"
+                        style={{ backgroundColor: '#5b064a' }}
+                        className='font-medium bg-primary-blue text-sm text-white hover:shadow rounded px-6 py-1.5'
                       >
                         Follow
                       </button>
                     )}
-                    <span className="sm:block hidden">{metaballsMenu}</span>
+                    <span className='sm:block hidden'>{metaballsMenu}</span>
                   </div>
                 )}
               </div>
 
-              <div className="flex justify-between items-center max-w-[21.5rem]">
-                <div className="cursor-pointer">
-                  <span className="font-semibold">{user.posts?.length} posts</span>
+              <div className='flex justify-between items-center max-w-[21.5rem]'>
+                <div className='cursor-pointer'>
+                  <span className='font-semibold'>
+                    {user.posts?.length} posts
+                  </span>
                 </div>
-                <div onClick={handleFollowersModal} className="cursor-pointer">
-                  <span className="font-semibold">
+                <div onClick={handleFollowersModal} className='cursor-pointer'>
+                  <span className='font-semibold'>
                     {user.followers?.length} followers
                   </span>
                 </div>
-                <div onClick={handleFollowingModal} className="cursor-pointer">
-                  <span className="font-semibold">
+                <div onClick={handleFollowingModal} className='cursor-pointer'>
+                  <span className='font-semibold'>
                     {user.following?.length} following
                   </span>
                 </div>
               </div>
 
               {/* bio */}
-              <div className="max-w-full">
-                <p className="font-medium">{user.name}</p>
-                <p className="whitespace-pre-line">{user.bio}</p>
+              <div className='max-w-full'>
+                <p className='font-medium'>{user.name}</p>
+                <p className='whitespace-pre-line'>{user.bio}</p>
                 {user?.website && (
                   <a
                     href={user.website}
-                    target="_blank"
-                    className="text-blue-900 font-medium"
+                    target='_blank'
+                    className='text-blue-900 font-medium'
                   >
                     {new URL(user.website).hostname}
                   </a>
@@ -236,27 +235,29 @@ const Profile = () => {
 
           {followersModal ? (
             <UsersDialog
-              title="Followers"
+              title='Followers'
               open={viewModal}
               onClose={closeModal}
               usersList={user?.followers}
             />
           ) : (
             <UsersDialog
-              title="Following"
+              title='Following'
               open={viewModal}
               onClose={closeModal}
               usersList={user?.following}
             />
           )}
 
-          <div className="border-t sm:ml-8 sm:mr-14">
+          <div className='border-t sm:ml-8 sm:mr-14'>
             {/* tabs */}
-            <div className="flex gap-12 justify-center">
+            <div className='flex gap-12 justify-center'>
               <span
                 onClick={() => setSavedTab(false)}
                 className={`${
-                  savedTab ? "text-gray-400" : "border-t border-black"
+                  savedTab
+                    ? 'text-gray-400'
+                    : 'border-t border-[#5b064a] text-[#5b064a]'
                 } py-3 cursor-pointer flex items-center text-[13px] uppercase gap-3 tracking-[1px] font-medium`}
               >
                 {savedTab ? postsIconOutline : postsIconFill} posts
@@ -265,7 +266,9 @@ const Profile = () => {
                 <span
                   onClick={() => setSavedTab(true)}
                   className={`${
-                    savedTab ? "border-t border-black" : "text-gray-400"
+                    savedTab
+                      ? 'border-t border-[#5b064a] text-[#5b064a]'
+                      : 'text-gray-400'
                   } py-3 cursor-pointer flex items-center text-[13px] uppercase gap-3 tracking-[1px] font-medium`}
                 >
                   {savedTab ? savedIconFill : savedIconOutline} saved
@@ -275,19 +278,19 @@ const Profile = () => {
 
             {/* posts grid data */}
             {savedTab ? (
-              <PostContainer posts={user?.saved} id={"saved"} />
+              <PostContainer posts={user?.saved} id={'saved'} />
             ) : user?.posts?.length > 0 ? (
-              <PostContainer posts={user?.posts} id={"posts"} />
+              <PostContainer posts={user?.posts} id={'posts'} />
             ) : (
-              <div className="mt-2 mb-10 drop-shadow-sm rounded flex sm:flex-row flex-col sm:gap-0 gap-5 sm:p-0 p-4 items-center justify-between">
+              <div className='mt-2 mb-10 drop-shadow-sm rounded flex sm:flex-row flex-col sm:gap-0 gap-5 sm:p-0 p-4 items-center justify-between'>
                 {/* <img
                   draggable="false"
                   className="w-2/5 rounded-l"
                   src={photosempty}
                   alt=""
                 /> */}
-                <div className="mx-auto flex flex-col items-center">
-                  <h4 className="font-medium text-lg sm:text-xl">
+                <div className='mx-auto flex flex-col items-center'>
+                  <h4 className='font-medium text-lg sm:text-xl'>
                     No Photos or Videos yet.
                   </h4>
                   {/* <p>Get the app to share your first photo or video.</p> */}

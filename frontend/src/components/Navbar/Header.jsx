@@ -16,7 +16,7 @@ import { useSelector } from "react-redux";
 import { BASE_PROFILE_IMAGE_URL } from "../../utils/constants";
 import SearchBox from "./SearchBar/SearchBox";
 import { ClickAwayListener } from "@mui/material";
-import logo from "../../assests/images/logo.png";
+import logo1 from "../../assests/images/ermalogo.png";
 
 const Header = () => {
   const { user } = useSelector((state) => state.user);
@@ -35,19 +35,19 @@ const Header = () => {
 
   return (
     <nav
-      style={{ backgroundColor: "#1B192E" }}
-      className="fixed top-0 w-full border-b bg-white z-10"
+      style={{ backgroundColor: "#ffebeb" }}
+      className='fixed top-0 w-full border-b bg-white z-10'
     >
       {/* <!-- navbar container --> */}
-      <div className="flex flex-row justify-between items-center py-2 px-3.5 sm:w-full sm:py-2 sm:px-4 md:w-full md:py-2 md:px-6 xl:w-4/6 xl:py-3 xl:px-8 mx-auto">
+      <div className='flex flex-row justify-between items-center py-2 px-3.5 sm:w-full sm:py-2 sm:px-4 md:w-full md:py-2 md:px-6 xl:w-4/6 xl:py-3 xl:px-8 mx-auto'>
         {/* <!-- logo --> */}
-        <Link to="/">
+        <Link to='/'>
           <div style={{ width: "70px" }}>
             <img
-              draggable="false"
-              className="mt-1.5 w-full h-full object-contain"
-              src={logo}
-              alt=""
+              draggable='false'
+              className='mt-1.5 w-full h-full object-contain scale-150 '
+              src={logo1}
+              alt=''
             />
           </div>
         </Link>
@@ -55,21 +55,17 @@ const Header = () => {
         <SearchBox />
 
         {/* <!-- icons container  --> */}
-        <div className="flex items-center space-x-6 sm:mr-5">
-          <Link to="/">
-            {profileToggle || !onHome ? homeOutline : homeFill}
-          </Link>
+        <div className='flex items-center space-x-6 sm:mr-5'>
+          <Link to='/'>{!onHome ? homeOutline : homeFill}</Link>
 
-          <Link to="/direct/inbox">
-            {onChat ? messageFill : messageOutline}
-          </Link>
+          <Link to='direct/inbox'>{onChat ? messageFill : messageOutline}</Link>
 
-          <div onClick={() => setNewPost(true)} className="cursor-pointer">
+          <div onClick={() => setNewPost(true)} className='cursor-pointer'>
             {postUploadOutline}
           </div>
 
-          {/* <span className="hidden sm:block">{exploreOutline}</span>
-          <span className="hidden sm:block">{likeOutline}</span> */}
+          {/* <span className='hidden sm:block'>{exploreOutline}</span>
+          <span className='hidden sm:block'>{likeOutline}</span> */}
 
           <div
             onClick={() => setProfileToggle(!profileToggle)}
@@ -79,11 +75,11 @@ const Header = () => {
             } rounded-full cursor-pointer h-7 w-7 p-[0.5px]`}
           >
             <img
-              draggable="false"
-              loading="lazy"
-              className="w-full h-full rounded-full object-cover"
-              src={BASE_PROFILE_IMAGE_URL + user.avatar}
-              alt=""
+              draggable='false'
+              loading='lazy'
+              className='w-full h-full rounded-full object-cover'
+              src={user.avatar}
+              alt=''
             />
           </div>
         </div>

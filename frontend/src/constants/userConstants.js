@@ -51,27 +51,27 @@ export const CLEAR_ERRORS = "CLEAR_ERRORS";
 export const SPECIES_LIST = [
   {
     name: "Cat",
-    value: "cat",
+    value: "Cat",
   },
   {
     name: "Dog",
-    value: "dog",
+    value: "Dog",
   },
   {
     name: "Bird",
-    value: "bird",
+    value: "Bird",
   },
   {
     name: "Rodents",
-    value: "rodent",
+    value: "Rodent",
   },
   {
     name: "Reptiles",
-    value: "reptiles",
+    value: "Reptiles",
   },
   {
     name: "Fish",
-    value: "fish",
+    value: "Fish",
   },
 ];
 //#endregion

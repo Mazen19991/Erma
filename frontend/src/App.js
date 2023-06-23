@@ -46,34 +46,26 @@ function App() {
     });
   }, [pathname]);
 
-  // disable right click
-  window.addEventListener("contextmenu", (e) => e.preventDefault());
-  window.addEventListener("keydown", (e) => {
-    if (e.keyCode == 123) e.preventDefault();
-    if (e.ctrlKey && e.shiftKey && e.keyCode === 73) e.preventDefault();
-    if (e.ctrlKey && e.shiftKey && e.keyCode === 74) e.preventDefault();
-  });
-
   return (
     <>
       {isAuthenticated && <Header />}
       <Suspense fallback={<SpinLoader />}>
         <Routes>
           <Route
-            path="/"
+            path='/'
             element={
               <PrivateRoute>
                 <Home />
               </PrivateRoute>
             }
           />
-          <Route path="/login" element={<Login />} />
-          <Route path="/register" element={<SignUp />} />
-          <Route path="/password/forgot" element={<ForgotPassword />} />
-          <Route path="/password/reset/:token" element={<ResetPassword />} />
+          <Route path='/login' element={<Login />} />
+          <Route path='/register' element={<SignUp />} />
+          <Route path='/password/forgot' element={<ForgotPassword />} />
+          <Route path='/password/reset/:token' element={<ResetPassword />} />
 
           <Route
-            path="/:username"
+            path='/:username'
             element={
               <PrivateRoute>
                 <Profile />
@@ -81,7 +73,7 @@ function App() {
             }
           />
           <Route
-            path="/accounts/edit"
+            path='/accounts/edit'
             element={
               <PrivateRoute>
                 <Update activeTab={0}>
@@ -91,7 +83,7 @@ function App() {
             }
           />
           <Route
-            path="/accounts/password/change"
+            path='/accounts/password/change'
             element={
               <PrivateRoute>
                 <Update activeTab={1}>
@@ -102,7 +94,7 @@ function App() {
           />
 
           <Route
-            path="/direct/inbox"
+            path='/direct/inbox'
             element={
               <PrivateRoute>
                 <Inbox />
@@ -111,7 +103,7 @@ function App() {
           />
 
           <Route
-            path="/direct/t/:chatId/:userId"
+            path='/direct/t/:chatId/:userId'
             element={
               <PrivateRoute>
                 <Inbox />
@@ -119,7 +111,7 @@ function App() {
             }
           />
 
-          <Route path="*" element={<NotFound />} />
+          <Route path='*' element={<NotFound />} />
         </Routes>
       </Suspense>
     </>

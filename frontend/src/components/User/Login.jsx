@@ -7,7 +7,7 @@ import BackdropLoader from "../Layouts/BackdropLoader";
 import { useDispatch, useSelector } from "react-redux";
 import { clearErrors, loginUser } from "../../actions/userAction";
 import logo from "../../assests/images/logo.png";
-import logo1 from "../../assests/images/logo1.png";
+import logo1 from "../../assests/images/ermalogo.png";
 import "../../global.css";
 
 const Login = () => {
@@ -42,16 +42,14 @@ const Login = () => {
       <Auth>
         <div
           style={{
-            // backgroundColor: "#FF85F3",
             borderRadius: "50px",
             border: "2px solid white",
           }}
-          // style={{ backgroundColor: "#1B192E" }}
-          className="bg-white border flex flex-col gap-2 p-12 pt-12"
+          className="bg-white border flex flex-col gap-2 p-12 pt-12 shadow-md shadow-[#5b064a]"
         >
           <img
             draggable="false"
-            className="mx-auto h-30 w-36 object-contain"
+            className="mx-auto h-30 w-36 object-contain scale-150"
             src={logo1}
             alt=""
           />
@@ -81,19 +79,18 @@ const Login = () => {
               fullWidth
             />
             <button
-              style={{ backgroundColor: "#1B192E" }}
               type="submit"
-              className=" font-medium py-2 rounded text-white w-full"
+              className=" font-medium py-2 rounded bg-[#ffebeb] text-[#5b064a] w-full hover:bg-[#5b064a] hover:text-[#ffebeb]"
             >
               Log In
             </button>
-            <span className="my-3" style={{ color:"#DD1367" }}>
+            <span className="my-3" style={{ color:"#d30aa8" }}>
               OR
             </span>
             <Link
               to="/password/forgot"
               className="text-sm font-medium"
-              style={{ color: "#1B192E" }}
+              style={{ color: "#5b064a" }}
             >
               Forgot password?
             </Link>
@@ -102,15 +99,14 @@ const Login = () => {
 
         <div
           style={{
-            // backgroundColor: "#FF85F3",
             borderRadius: "50px",
             border: "2px solid white",
           }}
-          className="bg-white border p-5 text-center"
+          className="bg-white border p-5 text-center shadow-md shadow-[#5b064a]"
         >
           <span>
             Don't have an account?{" "}
-            <Link to="/register" style={{ color:"#DD1367" }}>
+            <Link to="/register" style={{ color:"#d30aa8" }}>
               Sign up
             </Link>
           </span>

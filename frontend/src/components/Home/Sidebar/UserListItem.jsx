@@ -3,6 +3,7 @@ import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import { followUser } from "../../../actions/userAction";
 import { BASE_PROFILE_IMAGE_URL } from "../../../utils/constants";
+import { SHOULD_RE_RENDER } from "../../../constants/postConstants";
 
 const UserListItem = ({ _id, username, avatar }) => {
   const dispatch = useDispatch();
@@ -12,6 +13,7 @@ const UserListItem = ({ _id, username, avatar }) => {
   const handleFollow = () => {
     setFollow(!follow);
     dispatch(followUser(_id));
+    dispatch({ type: SHOULD_RE_RENDER });
   };
 
   return (
@@ -21,14 +23,14 @@ const UserListItem = ({ _id, username, avatar }) => {
           <img
             draggable="false"
             className="w-9 h-9 rounded-full object-cover"
-            src={BASE_PROFILE_IMAGE_URL + avatar}
+            src={avatar}
             alt="avatar"
           />
         </Link>
         <div className="flex flex-col gap-0.5">
           <Link
             to={`/${username}`}
-            className="text-white text-sm font-semibold hover:underline"
+            className="text-[#5b064a] text-sm font-semibold hover:underline"
           >
             {username}
           </Link>
@@ -38,7 +40,7 @@ const UserListItem = ({ _id, username, avatar }) => {
       <button
         onClick={handleFollow}
         className={`${
-          follow ? "text-red-500" : "text-blue-500"
+          follow ? "text-red-500" : "text-[#5b064a]"
         } text-xs font-medium`}
       >
         {follow ? "Unfollow" : "Follow"}

@@ -1,7 +1,7 @@
 import SettingsIcon from "@mui/icons-material/Settings";
 
 export const settingsIcon = (
-  <SettingsIcon sx={{ fontSize: "2em", color: "#1B192E" }} />
+  <SettingsIcon sx={{ fontSize: "2em", color: "#5b064a" }} />
 );
 
 export const metaballsMenu = (
@@ -22,8 +22,8 @@ export const metaballsMenu = (
 
 export const postsIconFill = (
   <svg
-    color="#262626"
-    fill="#262626"
+    color="#5b064a"
+    fill="#5b064a"
     height="12"
     role="img"
     viewBox="0 0 24 24"
@@ -156,8 +156,8 @@ export const postsIconOutline = (
 
 export const savedIconFill = (
   <svg
-    color="#262626"
-    fill="#262626"
+    color="#5b064a"
+    fill="#5b064a"
     height="12"
     role="img"
     viewBox="0 0 24 24"

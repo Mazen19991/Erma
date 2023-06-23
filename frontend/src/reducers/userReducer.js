@@ -38,6 +38,7 @@ import {
   USER_DETAILS_SUCCESS,
 } from "../constants/userConstants";
 
+
 export const userReducer = (state = { user: {} }, { type, payload }) => {
   switch (type) {
     case LOGIN_USER_REQUEST:

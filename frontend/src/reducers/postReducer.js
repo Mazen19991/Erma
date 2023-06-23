@@ -1,4 +1,6 @@
 import {
+  ADD_TAGS,
+  GET_ALL_TAGS,
   CLEAR_ERRORS,
   DELETE_POST_FAIL,
   DELETE_POST_REQUEST,
@@ -28,6 +30,8 @@ import {
   SAVE_UNSAVE_POST_REQUEST,
   SAVE_UNSAVE_POST_RESET,
   SAVE_UNSAVE_POST_SUCCESS,
+  TAGS_FILTERING,
+  SHOULD_RE_RENDER,
 } from "../constants/postConstants";
 
 // New Post Reducer
@@ -60,10 +64,27 @@ export const newPostReducer = (state = { post: {} }, { type, payload }) => {
         ...state,
         error: null,
       };
+
+    case ADD_TAGS:
+      return {
+        ...state,
+        tags: payload,
+      };
     default:
       return state;
   }
 };
+export const getAllTagsReducer = (state = { tags: [] }, { type, payload }) => {
+  switch (type) {
+    case GET_ALL_TAGS:
+      return {
+        ...state,
+        allTags: payload,
+      };
+    default:
+      return state;
+  }
+}
 
 export const postOfFollowingReducer = (
   state = { posts: [] },
@@ -80,6 +101,8 @@ export const postOfFollowingReducer = (
         loading: false,
         posts: [...state.posts, ...payload.posts],
         totalPosts: payload.totalPosts,
+        tags: payload.tags,
+        shouldReRender: false,
       };
     case POST_FOLLOWING_RESET:
       return {
@@ -97,6 +120,19 @@ export const postOfFollowingReducer = (
       return {
         ...state,
         error: null,
+      };
+    case TAGS_FILTERING:
+      return {
+        ...state,
+        loading: false,
+        error: null,
+        posts: payload,
+      };
+    case SHOULD_RE_RENDER:
+      return {
+        ...state,
+        shouldReRender: true,
+        posts: [],
       };
     default:
       return state;

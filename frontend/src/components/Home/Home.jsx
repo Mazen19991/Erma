@@ -15,7 +15,7 @@ const Home = () => {
           // backgroundColor: "#1B192E",
           // backgroundColor: "#DD1367",
           // backgroundImage: `radial-gradient(#ffffff, #c3cdd7)`,
-          backgroundImage: "linear-gradient(to bottom right, #54affa, red)",
+          backgroundImage: 'white',
           //opacity: "1",
           //backgroundSize: "100% 100%",
           //animation: "gradient 10s ease infinite",

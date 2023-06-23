@@ -5,9 +5,8 @@ import Sidebar from "./Sidebar";
 const Update = ({ children, activeTab }) => {
   return (
     <>
-      <div style={{ background: "linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(9,9,121,1) 35%, rgba(0,212,255,1) 100%)", height:"100vh", marginTop:"5%" }} className="mx-auto sm:pr-14 sm:pl-8">  
-      {/* xl:w-2/3 */}
-        <div style={{ display:"flex", justifyItems:"center" }} className="flex border rounded w-full bg-white mx-auto xl:w-2/3">
+      <div style={{height:"100vh", marginTop:"5%" }} className="sm:pr-14 sm:pl-8 flex justify-center items-center">  
+        <div style={{ display:"flex", justifyItems:"center" }} className="flex border rounded bg-white w-full mx-auto xl:w-2/3 shadow-md text-[#5b064a]">
           <Sidebar activeTab={activeTab} />
           {children}
         </div>

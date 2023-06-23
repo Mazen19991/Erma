@@ -1,26 +1,34 @@
-const User = require("../models/userModel");
-const Post = require("../models/postModel");
-const catchAsync = require("../middlewares/catchAsync");
-const sendCookie = require("../utils/sendCookie");
-const ErrorHandler = require("../utils/errorHandler");
-const sendEmail = require("../utils/sendEmail");
-const crypto = require("crypto");
-const deleteFile = require("../utils/deleteFile");
+const User = require('../models/userModel');
+const Post = require('../models/postModel');
+const catchAsync = require('../middlewares/catchAsync');
+const sendCookie = require('../utils/sendCookie');
+const ErrorHandler = require('../utils/errorHandler');
+const sendEmail = require('../utils/sendEmail');
+const crypto = require('crypto');
+const deleteFile = require('../utils/deleteFile');
+const uploadToS3 = require('../utils/uploadToS3');
+const { TYPES } = require('../../public/constants');
 
 // Signup User
 exports.signupUser = catchAsync(async (req, res, next) => {
-  const { name, email, Ownername, username, password } = req.body;
+  const { name, species, email, Ownername, username, password } = req.body;
 
   const user = await User.findOne({
     $or: [{ email }, { username }],
   });
+
   if (user) {
     if (user.username === username) {
-      return next(new ErrorHandler("Username already exists", 401));
+      return next(new ErrorHandler('Username already exists', 401));
     }
-    return next(new ErrorHandler("Email already exists", 401));
+
+    return next(new ErrorHandler('Email already exists', 401));
   }
 
+  let directory = {};
+  if (req?.file?.fieldname) {
+    directory = await uploadToS3(TYPES.POSTS, req.file);
+  }
   const newUser = await User.create({
     name,
     species,
@@ -28,20 +36,20 @@ exports.signupUser = catchAsync(async (req, res, next) => {
     Ownername,
     username,
     password,
-    avatar: req.file.filename,
+    avatar: req?.file?.filename
+      ? `https://erma.s3.amazonaws.com/posts/${directory}`
+      : null,
   });
-
   sendCookie(newUser, 201, res);
 });
 
 // Login User
 exports.loginUser = catchAsync(async (req, res, next) => {
-  const { userId, password } = req.body;
+  const { value, password } = req.body;
 
   const user = await User.findOne({
-    $or: [{ email: userId }, { username: userId }],
-  }).select("+password");
-
+    $or: [{ email: value }, { username: value }],
+  }).select('+password');
   if (!user) {
     return next(new ErrorHandler("User doesn't exist", 401));
   }
@@ -57,23 +65,23 @@ exports.loginUser = catchAsync(async (req, res, next) => {
 
 // Logout User
 exports.logoutUser = catchAsync(async (req, res, next) => {
-  res.cookie("token", null, {
+  res.cookie('token', null, {
     expires: new Date(Date.now()),
     httpOnly: true,
   });
 
   res.status(200).json({
     success: true,
-    message: "Logged Out",
+    message: 'Logged Out',
   });
 });
 
 // Get User Details --Logged In User
 exports.getAccountDetails = catchAsync(async (req, res, next) => {
   const user = await User.findById(req.user._id).populate({
-    path: "posts",
+    path: 'posts',
     populate: {
-      path: "postedBy",
+      path: 'postedBy',
     },
   });
 
@@ -86,37 +94,40 @@ exports.getAccountDetails = catchAsync(async (req, res, next) => {
 // Get User Details
 exports.getUserDetails = catchAsync(async (req, res, next) => {
   const user = await User.findOne({ username: req.params.username })
-    .populate("followers following")
+    .populate('followers following')
     .populate({
-      path: "posts",
+      path: 'posts',
       populate: {
-        path: "comments",
+        path: 'comments',
         populate: {
-          path: "user",
+          path: 'user',
+        },
+      },
+      populate: {
+        path: 'tags',
+      }
+    })
+    .populate({
+      path: 'posts',
+      populate: {
+        path: 'postedBy',
+      },
+    })
+    .populate({
+      path: 'saved',
+      populate: {
+        path: 'comments',
+        populate: {
+          path: 'user',
         },
       },
     })
     .populate({
-      path: "posts",
+      path: 'saved',
       populate: {
-        path: "postedBy",
+        path: 'postedBy',
       },
     })
-    .populate({
-      path: "saved",
-      populate: {
-        path: "comments",
-        populate: {
-          path: "user",
-        },
-      },
-    })
-    .populate({
-      path: "saved",
-      populate: {
-        path: "postedBy",
-      },
-    });
 
   res.status(200).json({
     success: true,
@@ -157,12 +168,12 @@ exports.getAllUsers = catchAsync(async (req, res, next) => {
 exports.updatePassword = catchAsync(async (req, res, next) => {
   const { oldPassword, newPassword } = req.body;
 
-  const user = await User.findById(req.user._id).select("+password");
+  const user = await User.findById(req.user._id).select('+password');
 
   const isPasswordMatched = await user.comparePassword(oldPassword);
 
   if (!isPasswordMatched) {
-    return next(new ErrorHandler("Invalid Old Password", 401));
+    return next(new ErrorHandler('Invalid Old Password', 401));
   }
 
   user.password = newPassword;
@@ -187,14 +198,14 @@ exports.updateProfile = catchAsync(async (req, res, next) => {
     $or: [{ email }, { username }],
   });
   if (userExists && userExists._id.toString() !== req.user._id.toString()) {
-    return next(new ErrorHandler("User Already Exists", 404));
+    return next(new ErrorHandler('User Already Exists', 404));
   }
-
-  if (req.body.avatar !== "") {
+  if (req.body.avatar !== '') {
     const user = await User.findById(req.user._id);
-
-    await deleteFile("profiles/", user.avatar);
-    newUserData.avatar = req.file.filename;
+    const dir = user.avatar.split('/')[4];
+    newUserData.avatar = `https://erma.s3.amazonaws.com/posts/${directory}`;
+    await deleteFromS3(dir);
+    await uploadToS3(TYPES.POSTS, req.file);
   }
 
   await User.findByIdAndUpdate(req.user._id, newUserData, {
@@ -220,7 +231,7 @@ exports.deleteProfile = catchAsync(async (req, res, next) => {
 
   await user.remove();
 
-  res.cookie("token", null, {
+  res.cookie('token', null, {
     expires: new Date(Date.now()),
     httpOnly: true,
   });
@@ -248,7 +259,7 @@ exports.deleteProfile = catchAsync(async (req, res, next) => {
 
   res.status(200).json({
     success: true,
-    message: "Profile Deleted",
+    message: 'Profile Deleted',
   });
 });
 
@@ -258,7 +269,7 @@ exports.followUser = catchAsync(async (req, res, next) => {
   const loggedInUser = await User.findById(req.user._id);
 
   if (!userToFollow) {
-    return next(new ErrorHandler("User Not Found", 404));
+    return next(new ErrorHandler('User Not Found', 404));
   }
 
   if (loggedInUser.following.includes(userToFollow._id)) {
@@ -273,7 +284,7 @@ exports.followUser = catchAsync(async (req, res, next) => {
 
     return res.status(200).json({
       success: true,
-      message: "User Unfollowed",
+      message: 'User Unfollowed',
     });
   } else {
     loggedInUser.following.push(userToFollow._id);
@@ -283,7 +294,7 @@ exports.followUser = catchAsync(async (req, res, next) => {
 
     res.status(200).json({
       success: true,
-      message: "User Followed",
+      message: 'User Followed',
     });
   }
 });
@@ -293,7 +304,7 @@ exports.forgotPassword = catchAsync(async (req, res, next) => {
   const user = await User.findOne({ email: req.body.email });
 
   if (!user) {
-    return next(new ErrorHandler("User Not Found", 404));
+    return next(new ErrorHandler('User Not Found', 404));
   }
 
   const resetPasswordToken = await user.getResetPasswordToken();
@@ -301,7 +312,7 @@ exports.forgotPassword = catchAsync(async (req, res, next) => {
   await user.save();
 
   const resetPasswordUrl = `https://${req.get(
-    "host"
+    'host'
   )}/password/reset/${resetPasswordToken}`;
 
   try {
@@ -329,9 +340,9 @@ exports.forgotPassword = catchAsync(async (req, res, next) => {
 // Reset Password
 exports.resetPassword = catchAsync(async (req, res, next) => {
   const resetPasswordToken = crypto
-    .createHash("sha256")
+    .createHash('sha256')
     .update(req.params.token)
-    .digest("hex");
+    .digest('hex');
 
   const user = await User.findOne({
     resetPasswordToken,
@@ -339,7 +350,7 @@ exports.resetPassword = catchAsync(async (req, res, next) => {
   });
 
   if (!user) {
-    return next(new ErrorHandler("User Not Found", 404));
+    return next(new ErrorHandler('User Not Found', 404));
   }
 
   user.password = req.body.password;
@@ -358,13 +369,13 @@ exports.searchUsers = catchAsync(async (req, res, next) => {
         {
           name: {
             $regex: req.query.keyword,
-            $options: "i",
+            $options: 'i',
           },
         },
         {
           username: {
             $regex: req.query.keyword,
-            $options: "i",
+            $options: 'i',
           },
         },
       ],

@@ -89,7 +89,7 @@ const ResetPassword = () => {
             <button
               type="submit"
               className="font-medium py-2 rounded text-white w-full"
-              style={{ backgroundColor: "#1B192E" }}
+              style={{ backgroundColor: "#ffebeb" }}
             >
               Submit
             </button>
@@ -113,9 +113,9 @@ const ResetPassword = () => {
           <span>
             Already have an account?{" "}
             <Link
-              style={{ color: "#DD1367" }}
+              style={{ color: "#d30aa8" }}
               to="/login"
-              className="text-primary-blue"
+              className="text-white"
             >
               Log in
             </Link>

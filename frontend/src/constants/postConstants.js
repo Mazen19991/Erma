@@ -34,3 +34,8 @@ export const POST_DETAILS_RESET = "POST_DETAILS_RESET";
 export const POST_DETAILS_FAIL = "POST_DETAILS_FAIL";
 
 export const CLEAR_ERRORS = "CLEAR_ERRORS";
+export const TAGS_FILTERING = "TAGS_FILTERING";
+export const SHOULD_RE_RENDER = "SHOULD_RE_RENDER";
+export const ADD_TAGS = "ADD_TAGS";
+export const GET_ALL_TAGS = "GET_ALL_TAGS";
+

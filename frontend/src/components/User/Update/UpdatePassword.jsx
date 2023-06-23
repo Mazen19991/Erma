@@ -57,13 +57,13 @@ const UpdatePassword = () => {
 
       <form
         onSubmit={handlePasswordUpdate}
-        className="flex flex-col gap-4 py-8 px-16 sm:w-3/4"
+        className="flex flex-col gap-4 py-8 px-16 sm:w-3/4 text-[#5b064a]"
       >
         <div className="flex items-center gap-8 ml-24">
           <img
             draggable="false"
             className="w-11 h-11 rounded-full border object-cover"
-            src={BASE_PROFILE_IMAGE_URL + user.avatar}
+            src={user.avatar}
             alt=""
           />
           <span className="text-2xl">{user.username}</span>
@@ -107,8 +107,8 @@ const UpdatePassword = () => {
         <button
           type="submit"
           disabled={loading}
-          style={{ backgroundColor: "#1B192E" }}
-          className="font-medium rounded text-white py-2 w-40 mx-auto text-sm"
+          style={{ backgroundColor: "#ffebeb" }}
+          className="font-medium rounded text-[#5b064a] py-2 w-40 mx-auto text-sm"
         >
           Change Password
         </button>

@@ -1,15 +1,15 @@
-import React, { useEffect, useRef, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
-import { toast } from "react-toastify";
+import React, { useEffect, useRef, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 import {
   clearErrors,
   loadUser,
   updateProfile,
-} from "../../../actions/userAction";
-import { UPDATE_PROFILE_RESET } from "../../../constants/userConstants";
-import { BASE_PROFILE_IMAGE_URL } from "../../../utils/constants";
-import MetaData from "../../Layouts/MetaData";
+} from '../../../actions/userAction';
+import { UPDATE_PROFILE_RESET } from '../../../constants/userConstants';
+import { BASE_PROFILE_IMAGE_URL } from '../../../utils/constants';
+import MetaData from '../../Layouts/MetaData';
 
 const UpdateProfile = () => {
   const dispatch = useDispatch();
@@ -19,14 +19,14 @@ const UpdateProfile = () => {
   const { user } = useSelector((state) => state.user);
   const { error, isUpdated, loading } = useSelector((state) => state.profile);
 
-  const [name, setName] = useState("");
-  const [username, setUsername] = useState("");
-  const [website, setWebsite] = useState("");
-  const [bio, setBio] = useState("");
-  const [email, setEmail] = useState("");
-  const [oldAvatar, setOldAvatar] = useState("");
-  const [avatar, setAvatar] = useState("");
-  const [avatarPreview, setAvatarPreview] = useState("");
+  const [name, setName] = useState('');
+  const [username, setUsername] = useState('');
+  const [website, setWebsite] = useState('');
+  const [bio, setBio] = useState('');
+  const [email, setEmail] = useState('');
+  const [oldAvatar, setOldAvatar] = useState('');
+  const [avatar, setAvatar] = useState('');
+  const [avatarPreview, setAvatarPreview] = useState('');
 
   const handleUpdate = (e) => {
     e.preventDefault();
@@ -34,24 +34,24 @@ const UpdateProfile = () => {
     const userCheck = /^[a-z0-9_-]{6,16}$/gim;
 
     if (!userCheck.test(username)) {
-      toast.error("Invalid Username");
+      toast.error('Invalid Username');
       return;
     }
 
     const formData = new FormData();
-    formData.set("name", name);
-    formData.set("username", username);
-    formData.set("website", website);
-    formData.set("bio", bio);
-    formData.set("email", email);
-    formData.set("avatar", avatar);
+    formData.set('name', name);
+    formData.set('username', username);
+    formData.set('website', website);
+    formData.set('bio', bio);
+    formData.set('email', email);
+    formData.set('avatar', avatar);
 
     dispatch(updateProfile(formData));
   };
 
   const handleAvatarChange = (e) => {
     const reader = new FileReader();
-    setAvatar("");
+    setAvatar('');
     reader.onload = () => {
       if (reader.readyState === 2) {
         setAvatarPreview(reader.result);
@@ -75,7 +75,7 @@ const UpdateProfile = () => {
       dispatch(clearErrors());
     }
     if (isUpdated) {
-      toast.success("Profile Updated");
+      toast.success('Profile Updated');
       dispatch(loadUser());
       navigate(`/${username}`);
 
@@ -85,105 +85,101 @@ const UpdateProfile = () => {
 
   return (
     <>
-      <MetaData title="Edit Profile • ERMA" />
+      <MetaData title='Edit Profile • ERMA' />
 
       <form
         onSubmit={handleUpdate}
-        encType="multipart/form-data"
-        className="flex flex-col gap-4 py-4 px-4 sm:py-10 sm:px-24 sm:w-3/4"
+        encType='multipart/form-data'
+        className='flex flex-col gap-4 py-4 px-4 sm:py-10 sm:px-24 sm:w-3/4 text-[#5b064a]'
       >
-        <div className="flex items-center gap-8 ml-20">
-          <div className="w-11 h-11">
+        <div className='flex items-center gap-8 ml-20'>
+          <div className='w-11 h-11'>
             <img
-              draggable="false"
-              className="w-full h-full rounded-full border object-cover"
-              src={
-                avatarPreview
-                  ? avatarPreview
-                  : BASE_PROFILE_IMAGE_URL + oldAvatar
-              }
-              alt="avatar"
+              draggable='false'
+              className='w-full h-full rounded-full border object-cover'
+              src={avatarPreview ? avatarPreview : oldAvatar}
+              alt='avatar'
             />
           </div>
-          <div className="flex flex-col gap-0">
-            <span className="text-xl">{username}</span>
+          <div className='flex flex-col gap-0'>
+            <span className='text-xl'>{username}</span>
             <label
               onClick={(e) => avatarInput.current.click()}
-              className="text-sm font-medium text-primary-blue cursor-pointer"
+              className='text-sm font-medium text-primary-blue cursor-pointer'
             >
               Change Profile Photo
             </label>
             <input
-              type="file"
-              accept="image/*"
-              name="avatar"
+              type='file'
+              accept='image/*'
+              name='avatar'
               ref={avatarInput}
               onChange={handleAvatarChange}
-              className="hidden"
+              className='hidden'
             />
           </div>
         </div>
-        <div className="flex w-full gap-8 text-right items-center">
-          <span className="w-1/4 font-semibold">Name</span>
+        <div className='flex w-full gap-8 text-right items-center'>
+          <span className='w-1/4 font-semibold'>Name</span>
           <input
-            className="border rounded p-1 w-3/4"
-            type="text"
-            placeholder="Name"
+            className='border rounded p-1 w-3/4'
+            type='text'
+            placeholder='Name'
             value={name}
             onChange={(e) => setName(e.target.value)}
             required
           />
         </div>
-        <div className="flex w-full gap-8 text-right items-center">
-          <span className="w-1/4 font-semibold">Username</span>
+        <div className='flex w-full gap-8 text-right items-center'>
+          <span className='w-1/4 font-semibold'>Username</span>
           <input
-            className="border rounded p-1 w-3/4"
-            type="text"
-            placeholder="Username"
+            className='border rounded p-1 w-3/4'
+            type='text'
+            placeholder='Username'
             value={username}
             onChange={(e) => setUsername(e.target.value)}
             required
           />
         </div>
-        <div className="flex w-full gap-8 text-right items-center">
-          <span className="w-1/4 font-semibold">Website</span>
+        <div className='flex w-full gap-8 text-right items-center'>
+          <span className='w-1/4 font-semibold'>Website</span>
           <input
-            className="border rounded p-1 w-3/4"
-            type="url"
-            placeholder="Website"
+            className='border rounded p-1 w-3/4'
+            type='url'
+            placeholder='Website'
             value={website}
             onChange={(e) => setWebsite(e.target.value)}
             required
           />
         </div>
-        <div className="flex w-full gap-8 text-right items-start">
-          <span className="w-1/4 font-semibold">Bio</span>
+        <div className='flex w-full gap-8 text-right items-start'>
+          <span className='w-1/4 font-semibold'>Bio</span>
           <textarea
-            className="border rounded outline-none resize-none p-1 w-3/4"
-            name="bio"
-            placeholder="Bio"
-            rows="3"
+            className='border rounded outline-none resize-none p-1 w-3/4'
+            name='bio'
+            placeholder='Bio'
+            rows='3'
             value={bio}
             onChange={(e) => setBio(e.target.value)}
             required
           ></textarea>
         </div>
-        <div className="flex w-full gap-8 text-right items-center">
-          <span className="w-1/4 font-semibold">Email</span>
+        <div className='flex w-full gap-8 text-right items-center'>
+          <span className='w-1/4 font-semibold'>Email</span>
           <input
-            className="border rounded p-1 w-3/4"
-            type="email"
-            placeholder="Email"
+            className='border rounded p-1 w-3/4'
+            type='email'
+            placeholder='Email'
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             required
           />
         </div>
         <button
-          type="submit"
+          type='submit'
           disabled={loading}
-          style={{ backgroundColor: "#1B192E" }}
-          className="font-medium rounded text-white py-2 w-40 mx-auto text-sm"
+          style={{ backgroundColor: '#ffebeb' }}
+          className='font-medium rounded text-[#5b064a] py-2 w-40 mx-auto text-sm'
         >
           Submit
         </button>

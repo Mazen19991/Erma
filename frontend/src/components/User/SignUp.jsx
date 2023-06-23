@@ -13,7 +13,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import { clearErrors, registerUser } from "../../actions/userAction";
 import BackdropLoader from "../Layouts/BackdropLoader";
-import logo1 from "../../assests/images/logo1.png";
+import logo1 from "../../assests/images/ermalogo.png";
 import { SPECIES_LIST } from "../../constants/userConstants";
 
 const SignUp = () => {
@@ -113,13 +113,12 @@ const SignUp = () => {
           style={{
             borderRadius: "50px",
             border: "2px solid white",
-            boxShadow: "5px 5px 5px #DD1367",
           }}
-          className="bg-white border flex flex-col gap-2 p-4 pt-10"
+          className="bg-white border flex flex-col gap-2 p-4 pt-10 shadow-md shadow-[#5b064a]"
         >
           <img
             draggable="false"
-            className="mx-auto h-30 w-36 object-contain"
+            className="mx-auto h-30 w-36 object-contain scale-150"
             src={logo1}
             alt=""
           />
@@ -147,20 +146,20 @@ const SignUp = () => {
               required
               size="small"
             />
-              <Select // select menu for species
+              <TextField // select menu for species
               fullWidth
               label='Species'
+              labelId="speciesLabel"
               value={selectChange}
               name="species"
-              defaultValue="Species"
               onChange={handleDataChange}
               size="small"
-              
+              select
             >
               {SPECIES_LIST.map(({ name, value }, index) => {
                return <MenuItem value={value} key={index}>{name}</MenuItem>;
               })}
-            </Select>
+            </TextField>
 
             
             <TextField
@@ -208,8 +207,8 @@ const SignUp = () => {
                                     file:mr-3 file:py-2 file:px-6
                                     file:rounded-full file:border-0
                                     file:text-sm file:cursor-pointer file:font-semibold
-                                    file:bg-blue-100 file:text-blue-700
-                                    hover:file:bg-blue-200
+                                    file:bg-[#5b064a] file:text-[#ffebeb]
+                                    hover:file:bg-[#ffebeb] hover:file:text-[#5b064a]
                                     "
                 />
               </label>
@@ -217,21 +216,11 @@ const SignUp = () => {
 
             <button
               type="submit"
-              className="bg-primary-blue font-medium py-2 rounded text-white w-full"
-              style={{ backgroundColor: "#1B192E" }}
+              className="font-medium py-2 rounded bg-[#ffebeb] text-[#5b064a] w-full hover:bg-[#5b064a] hover:text-[#ffebeb]"
             >
               Sign up
             </button>
-            <span style={{ color: "#DD1367" }} className="my-3">
-              OR
-            </span>
-            <Link
-              style={{ color: "#1B192E" }}
-              to="/password/forgot"
-              className="text-sm font-medium "
-            >
-              Forgot password?
-            </Link>
+
           </form>
         </div>
 
@@ -240,14 +229,14 @@ const SignUp = () => {
             borderRadius: "50px",
             border: "2px solid white",
           }}
-          className="bg-white border p-5 text-center"
+          className="bg-white border p-5 text-center shadow-md shadow-[#5b064a]"
         >
           <span>
             Already have an account?{" "}
             <Link
-              style={{ color: "#DD1367" }}
+              style={{ color: "#d30aa8" }}
               to="/login"
-              className="text-primary-blue"
+              className="text-white"
             >
               Log in
             </Link>

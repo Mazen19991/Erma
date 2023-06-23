@@ -52,7 +52,7 @@ const Sidebar = ({ activeTab }) => {
           to={el.nav}
           className={`${
             activeTab === i
-              ? "border-black text-black border-l-2 font-medium"
+              ? "border-black text-[#5b064a] border-l-2 font-medium"
               : "hover:border-gray-300 text-gray-600"
           } py-3 px-6 hover:border-l-2 hover:bg-gray-50 cursor-pointer`}
         >

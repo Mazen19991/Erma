@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useParams } from "react-router-dom";
-import { BASE_PROFILE_IMAGE_URL, SOCKET_ENDPOINT } from "../../utils/constants";
+import { SOCKET_ENDPOINT } from "../../utils/constants";
 import { io } from "socket.io-client";
 
 const ChatListItem = ({ _id, users, latestMessage }) => {
@@ -41,7 +41,7 @@ const ChatListItem = ({ _id, users, latestMessage }) => {
         <img
           draggable="false"
           className="w-full h-full rounded-full object-cover"
-          src={BASE_PROFILE_IMAGE_URL + friend.avatar}
+          src={friend.avatar}
           alt="avatar"
         />
         {isOnline && (
