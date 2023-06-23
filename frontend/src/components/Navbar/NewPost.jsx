@@ -138,7 +138,7 @@ const NewPost = ({ newPost, setNewPost }) => {
             >
               <AddToPhotosIcon sx={{ color: "#5b064a", fontSize: "3em" }} />
               <p style={{ color: "#5b064a" }} className="text-xl">
-                Drag photos and videos here
+                Drag photos here
               </p>
               <input
                 type="file"
