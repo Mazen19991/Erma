@@ -1,5 +1,6 @@
 # Erma
-## Description: developmed a comprehensive animal social media web application aimed at connecting pet owners and enthusiasts through an engaging and user-friendly platform. The application encompassed diverse features including user profiles for pets, media sharing, interactive feeds, and user-to-user interactions. Users were able to connect with other pet owners, discover local pet services, and engage with animal-related content.
+## Description: 
+## developed a comprehensive animal social media web application aimed at connecting pet owners and enthusiasts through an engaging and user-friendly platform. The application encompassed diverse features including user profiles for pets, media sharing, interactive feeds, and user-to-user interactions. Users were able to connect with other pet owners, discover local pet services, and engage with animal-related content.
 
 Key Accomplishments:
 - Designed and implemented essential functionalities such as user authentication, profile creation, post sharing, and messaging system.
